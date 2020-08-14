@@ -1,5 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.koallann.support">
-
-    /
-</manifest>
+    package="me.koallann.support" />
