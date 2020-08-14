@@ -1,4 +1,4 @@
-package me.koallann.myagenda.shared.rx
+package me.koallann.myagenda.shared.rxschedulers
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
