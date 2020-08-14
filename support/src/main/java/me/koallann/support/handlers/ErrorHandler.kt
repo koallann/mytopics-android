@@ -1,4 +1,4 @@
-package me.koallann.myagenda.shared.handlers
+package me.koallann.support.handlers
 
 interface ErrorHandler {
 

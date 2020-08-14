@@ -1,11 +1,11 @@
-package me.koallann.myagenda.shared.extensions
+package me.koallann.support.extensions
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import me.koallann.myagenda.shared.mvp.BasicView
-import me.koallann.myagenda.shared.rxschedulers.SchedulerProvider
+import me.koallann.support.mvp.BasicView
+import me.koallann.support.rxschedulers.SchedulerProvider
 
 /**
  * Thread switching extensions.

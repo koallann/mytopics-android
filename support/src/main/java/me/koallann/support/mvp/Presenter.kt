@@ -1,4 +1,4 @@
-package me.koallann.myagenda.shared.mvp
+package me.koallann.support.mvp
 
 import java.lang.ref.WeakReference
 

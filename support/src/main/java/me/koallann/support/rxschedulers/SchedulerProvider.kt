@@ -1,4 +1,4 @@
-package me.koallann.myagenda.shared.rxschedulers
+package me.koallann.support.rxschedulers
 
 import io.reactivex.rxjava3.core.Scheduler
 

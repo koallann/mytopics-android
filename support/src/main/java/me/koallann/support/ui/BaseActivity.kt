@@ -1,4 +1,4 @@
-package me.koallann.myagenda.presentation.base
+package me.koallann.support.ui
 
 import android.os.Bundle
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
-import me.koallann.myagenda.R
-import me.koallann.myagenda.shared.mvp.BasicView
+import me.koallann.support.R
+import me.koallann.support.mvp.BasicView
 
 abstract class BaseActivity : AppCompatActivity(), BasicView {
 

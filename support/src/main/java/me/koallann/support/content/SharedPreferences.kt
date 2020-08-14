@@ -1,4 +1,4 @@
-package me.koallann.myagenda.shared.content
+package me.koallann.support.content
 
 import android.app.Activity
 import android.content.Context
