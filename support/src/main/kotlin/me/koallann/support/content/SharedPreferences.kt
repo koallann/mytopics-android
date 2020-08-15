@@ -1,27 +1,28 @@
 package me.koallann.support.content
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPreferences(activity: Activity) {
+class SharedPreferences(context: Context) {
 
-    private val client: SharedPreferences = activity.getSharedPreferences(
-        activity::class.simpleName,
+    private val client: SharedPreferences = context.getSharedPreferences(
+        context.packageName + "_preferences",
         Context.MODE_PRIVATE
-    );
+    )
 
     fun contains(key: String) = client.contains(key)
 
-    fun getBoolean(key: String, defaultValue: Boolean): Boolean? = client.getBoolean(key, defaultValue)
+    fun getBoolean(key: String, defaultValue: Boolean): Boolean =
+        client.getBoolean(key, defaultValue)
 
-    fun getInt(key: String, defaultValue: Int): Int? = client.getInt(key, defaultValue)
+    fun getInt(key: String, defaultValue: Int): Int = client.getInt(key, defaultValue)
 
-    fun getFloat(key: String, defaultValue: Float): Float? = client.getFloat(key, defaultValue)
+    fun getFloat(key: String, defaultValue: Float): Float = client.getFloat(key, defaultValue)
 
-    fun getLong(key: String, defaultValue: Long): Long? = client.getLong(key, defaultValue)
+    fun getLong(key: String, defaultValue: Long): Long = client.getLong(key, defaultValue)
 
-    fun getString(key: String, defaultValue: String): String? = client.getString(key, defaultValue)
+    fun getString(key: String, defaultValue: String): String =
+        client.getString(key, defaultValue) ?: defaultValue
 
     fun put(key: String, value: Any?) {
         val editor = client.edit()
