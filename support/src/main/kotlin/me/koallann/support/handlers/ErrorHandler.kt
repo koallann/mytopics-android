@@ -1,5 +1,7 @@
 package me.koallann.support.handlers
 
+import me.koallann.support.mvp.BasicView
+
 interface ErrorHandler {
 
     /**
@@ -7,6 +9,6 @@ interface ErrorHandler {
      *
      * @return true if a message was shown or false otherwise.
      */
-    fun showMessageForError(error: Throwable): Boolean
+    fun showMessageForError(view: BasicView?, error: Throwable): Boolean
 
 }
