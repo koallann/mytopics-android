@@ -17,4 +17,12 @@
     <string name="msg_wrong_credentials">Wrong password.</string>
     <string name="msg_cannot_signin">Unable to sign in.</string>
 
+    <!-- Sign In -->
+
+    <string name="label_signup_msg">Sign up to your Agenda</string>
+    <string name="label_name">Name</string>
+    <string name="label_confirm_password">Confirm Password</string>
+
+    <string name="msg_cannot_signup">Unable to sign up.</string>
+
 </resources>
