@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import me.koallann.myagenda.local.user.UserDao
+import me.koallann.myagenda.local.user.UserEntity
 
-@Database(version = 1, entities = [])
+@Database(version = 1, entities = [UserEntity::class])
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -27,5 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
         }
     }
+
+    abstract fun getUserDao(): UserDao
 
 }
