@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import me.koallann.myagenda.local.user.UserDao
 import me.koallann.myagenda.local.user.UserEntity
 
-@Database(version = 1, entities = [UserEntity::class])
+@Database(version = 1, entities = [UserEntity::class], exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {

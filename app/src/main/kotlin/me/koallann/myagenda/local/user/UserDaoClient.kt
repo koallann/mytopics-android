@@ -8,8 +8,9 @@ import me.koallann.myagenda.domain.Credentials
 import me.koallann.myagenda.domain.User
 import me.koallann.myagenda.local.AppDatabase
 import me.koallann.support.content.SharedPreferences
+import java.util.concurrent.TimeUnit
 
-class UserClient(context: Context) : UserLocalDataSource {
+class UserDaoClient(context: Context) : UserLocalDataSource {
 
     companion object {
         private const val KEY_SIGNED_EMAIL = "signed_email"
@@ -30,15 +31,21 @@ class UserClient(context: Context) : UserLocalDataSource {
                 emitter.onComplete()
             } else {
                 userDao.findByEmail(signedEmail)
-                    .firstElement()
                     .map { it.toDomain() }
             }
         }
     }
 
     override fun signInUser(credentials: Credentials): Single<User> {
-        return userDao.findByEmail(credentials.email)
-            .firstOrError()
+        return Single.timer(2, TimeUnit.SECONDS)
+            .flatMap { userDao.findByEmail(credentials.email) }
+            .flatMap {
+                if (it.password == credentials.password) {
+                    Single.just(it)
+                } else {
+                    Single.error(IllegalArgumentException("Wrong password"))
+                }
+            }
             .map { it.toDomain() }
     }
 

@@ -5,7 +5,10 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import me.koallann.myagenda.domain.User
 
-@Entity(tableName = "users_user", indices = [Index(name = "email", unique = true)])
+@Entity(
+    tableName = "users_user",
+    indices = [Index(name = "email", unique = true, value = ["email"])]
+)
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,

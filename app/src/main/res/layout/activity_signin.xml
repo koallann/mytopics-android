@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="presenter"
+            type="me.koallann.myagenda.presentation.signin.SignInPresenter" />
+
+        <variable
             name="credentials"
             type="me.koallann.myagenda.domain.Credentials" />
 
@@ -39,7 +43,8 @@
             android:text="@={credentials.email}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signinLabel" />
+            app:layout_constraintTop_toBottomOf="@id/signinLabel"
+            app:validateType='@{"email"}' />
 
         <EditText
             android:id="@+id/password"
@@ -52,7 +57,8 @@
             android:text="@={credentials.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email" />
+            app:layout_constraintTop_toBottomOf="@id/email"
+            app:validateMinLength="@{6}" />
 
         <TextView
             android:id="@+id/forgotPassword"
@@ -62,6 +68,7 @@
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> presenter.onClickForgotPassword()}"
             android:padding="8dp"
             android:text="@string/label_forgot_password"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:onClick="@{() -> presenter.onClickSignIn(credentials)}"
             android:text="@string/label_signin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,6 +103,7 @@
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{() -> presenter.onClickSignUp()}"
             android:padding="8dp"
             android:text="@string/label_signup"
             android:textAllCaps="true"
