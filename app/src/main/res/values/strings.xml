@@ -14,7 +14,7 @@
     <string name="label_or">or</string>
     <string name="label_signup">Sign Up</string>
 
-    <string name="msg_invalid_credentials">Wrong password. Try again or click Forgot password.</string>
+    <string name="msg_wrong_credentials">Wrong password. Try again or click Forgot Password.</string>
     <string name="msg_cannot_signin">Unable to sign in.</string>
 
 </resources>

@@ -9,9 +9,9 @@ class SignInErrorHandler : ErrorHandler {
 
     override fun showMessageForError(view: BasicView, error: Throwable) {
         val messageRes = when (error) {
-            is EmptyResultSetException -> R.string.msg_invalid_credentials
-            is IllegalArgumentException -> R.string.msg_invalid_credentials
-            else -> R.string.app_name
+            is EmptyResultSetException -> R.string.msg_wrong_credentials
+            is IllegalArgumentException -> R.string.msg_wrong_credentials
+            else -> R.string.msg_cannot_signin
         }
         view.showMessage(messageRes)
     }
