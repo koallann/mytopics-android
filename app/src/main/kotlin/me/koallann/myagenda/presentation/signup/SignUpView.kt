@@ -6,6 +6,6 @@ interface SignUpView : BasicView {
 
     fun validateUserFields(): Boolean
 
-    fun navigateToHome()
+    fun onUserRegistered()
 
 }
