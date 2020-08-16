@@ -1,6 +1,7 @@
 package me.koallann.myagenda.local.user
 
 import android.content.Context
+import androidx.room.EmptyResultSetException
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -52,8 +53,7 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
     }
 
     override fun createUser(user: User): Single<User> {
-        val password =
-            user.secret?.password ?: throw IllegalArgumentException("Password is not set")
+        val password = user.secret?.password ?: throw IllegalArgumentException("Password is not set")
 
         return Completable.timer(2, TimeUnit.SECONDS)
             .andThen(
@@ -66,6 +66,21 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
                 )
             )
             .andThen(signInUser(Credentials(user.email, password)))
+    }
+
+    override fun checkUserExists(email: String): Single<Boolean> {
+        return Single.create { emitter ->
+            userDao.findByEmail(email).subscribe(
+                { emitter.onSuccess(true) },
+                {
+                    if (it is EmptyResultSetException) {
+                        emitter.onSuccess(false)
+                    } else {
+                        emitter.onError(it)
+                    }
+                }
+            )
+        }
     }
 
 }
