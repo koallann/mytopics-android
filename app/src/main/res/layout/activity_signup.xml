@@ -2,6 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="presenter"
+            type="me.koallann.myagenda.presentation.signup.SignUpPresenter" />
+
+        <variable
+            name="user"
+            type="me.koallann.myagenda.domain.User" />
+
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,7 +41,8 @@
                 android:layout_marginTop="16dp"
                 android:autofillHints="name"
                 android:hint="@string/label_name"
-                android:inputType="textCapSentences"
+                android:inputType="textCapWords"
+                android:text="@={user.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/signupLabel"
@@ -43,6 +56,7 @@
                 android:autofillHints="password"
                 android:hint="@string/label_email"
                 android:inputType="textEmailAddress"
+                android:text="@={user.email}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/name"
@@ -69,6 +83,7 @@
                 android:hint="@string/label_confirm_password"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
+                android:text="@={user.secret.password}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password"
@@ -79,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:onClick="@{() -> presenter.onClickSignUp(user)}"
                 android:text="@string/label_signup"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
