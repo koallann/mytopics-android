@@ -26,4 +26,9 @@
     <string name="msg_email_already_used">This email is already in use.</string>
     <string name="msg_cannot_signup">Unable to sign up.</string>
 
+    <!-- Forgot Password -->
+
+    <string name="label_recover_account">Recover your account</string>
+    <string name="label_send_email">Send Email</string>
+
 </resources>

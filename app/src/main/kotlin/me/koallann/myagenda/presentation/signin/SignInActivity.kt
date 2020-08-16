@@ -8,6 +8,7 @@ import me.koallann.myagenda.data.user.UserRepositoryImpl
 import me.koallann.myagenda.databinding.ActivitySigninBinding
 import me.koallann.myagenda.domain.Credentials
 import me.koallann.myagenda.local.user.UserDaoClient
+import me.koallann.myagenda.presentation.forgotpassword.ForgotPasswordActivity
 import me.koallann.myagenda.presentation.signup.SignUpActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
@@ -57,7 +58,7 @@ class SignInActivity : BaseActivity(), SignInView {
     }
 
     override fun navigateToForgotPassword() {
-        showMessage("onNavigateToForgotPassword")
+        startActivity(ForgotPasswordActivity.createIntent(this))
     }
 
     override fun navigateToHome() {
