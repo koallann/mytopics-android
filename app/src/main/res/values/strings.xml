@@ -33,4 +33,9 @@
     <string name="msg_email_doesnt_exists">This email doesn\'t exists.</string>
     <string name="msg_cannot_recover_email">Unable to send a recovery email.</string>
 
+    <!-- Home -->
+
+    <string name="label_open_topics">Open</string>
+    <string name="label_closed_topics">Closed</string>
+
 </resources>

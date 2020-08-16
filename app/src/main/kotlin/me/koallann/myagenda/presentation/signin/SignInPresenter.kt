@@ -23,6 +23,12 @@ class SignInPresenter(
         disposables.clear()
     }
 
+    fun onCheckSignedUser() {
+        if (userRepository.hasUserSigned()) {
+            view?.navigateToHome()
+        }
+    }
+
     fun onClickSignIn(credentials: Credentials) {
         if (view?.validateCredentialsFields() != true) {
             return
