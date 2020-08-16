@@ -58,11 +58,11 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
         return Completable.timer(2, TimeUnit.SECONDS)
             .andThen(
                 userDao.insert(
-                    UserEntity(
-                        name = user.name,
-                        email = user.email,
-                        password = password
-                    )
+                    UserEntity().apply {
+                        name = user.name
+                        email = user.email
+                        this.password = password
+                    }
                 )
             )
             .toSingle {

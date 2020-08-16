@@ -41,7 +41,7 @@ class SignUpPresenterTest {
 
     @Test
     fun `Should not try to sign up if the user fields are invalid`() {
-        val user = User("John Doe", "john.doe@acme.com")
+        val user = User(name = "John Doe", email = "john.doe@acme.com")
 
         `when`(view.validateUserFields()).thenReturn(false)
 
@@ -53,7 +53,7 @@ class SignUpPresenterTest {
 
     @Test
     fun `Should try to sign up if the user fields fields are valid`() {
-        val user = User("John Doe", "john.doe@acme.com", User.Secret("123456"))
+        val user = User(name = "John Doe", email = "john.doe@acme.com", secret = User.Secret("123456"))
 
         `when`(view.validateUserFields()).thenReturn(true)
         `when`(userRepository.createUser(user)).thenReturn(Single.just(User()))
@@ -65,7 +65,7 @@ class SignUpPresenterTest {
 
     @Test
     fun `Should show a specific message when the given email is already in use`() {
-        val user = User("John Doe", "john.doe@acme.com", User.Secret("123456"))
+        val user = User(name = "John Doe", email = "john.doe@acme.com", secret = User.Secret("123456"))
         val error = SQLiteConstraintException("This email is already in use")
 
         `when`(view.validateUserFields()).thenReturn(true)
@@ -79,7 +79,7 @@ class SignUpPresenterTest {
 
     @Test
     fun `Should show a default message when an unknown error occurs`() {
-        val user = User("John Doe", "john.doe@acme.com", User.Secret("123456"))
+        val user = User(name = "John Doe", email = "john.doe@acme.com", secret = User.Secret("123456"))
         val error = Throwable("Unknown error")
 
         `when`(view.validateUserFields()).thenReturn(true)
@@ -93,10 +93,10 @@ class SignUpPresenterTest {
 
     @Test
     fun `Should sign up if the user fields are okay`() {
-        val user = User("John Doe", "john.doe@acme.com", User.Secret("123456"))
+        val user = User(name = "John Doe", email = "john.doe@acme.com", secret = User.Secret("123456"))
 
         `when`(view.validateUserFields()).thenReturn(true)
-        `when`(userRepository.createUser(user)).thenReturn(Single.just(User(user.name, user.email)))
+        `when`(userRepository.createUser(user)).thenReturn(Single.just(User(name = user.name, email = user.email)))
 
         presenter.onClickSignUp(user)
 

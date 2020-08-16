@@ -123,7 +123,7 @@ class SignInPresenterTest {
     @Test
     fun `Should navigate to home when the credentials are okay`() {
         val credentials = Credentials("john.doe@acme.com", "654321")
-        val user = User("John Doe", "john.doe@acme.org")
+        val user = User(name = "John Doe", email = "john.doe@acme.org")
 
         `when`(view.validateCredentialsFields()).thenReturn(true)
         `when`(userRepository.signInUser(credentials)).thenReturn(Single.just(user))
