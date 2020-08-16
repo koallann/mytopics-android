@@ -1,9 +1,11 @@
 package me.koallann.myagenda.local.user
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import me.koallann.myagenda.domain.User
+import me.koallann.myagenda.local.topic.TopicEntity
 
 @Entity(
     tableName = "users_user",
@@ -17,6 +19,6 @@ data class UserEntity(
     val password: String
 ) {
 
-    fun toDomain(): User = User(this.name, this.email)
+    fun toDomain(): User = User(id, name, email)
 
 }

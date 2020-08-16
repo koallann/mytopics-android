@@ -1,6 +1,7 @@
 package me.koallann.myagenda.domain
 
 data class User(
+    var id: Int = -1,
     var name: String = "",
     var email: String = "",
     var secret: Secret? = null

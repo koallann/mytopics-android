@@ -4,8 +4,8 @@ data class Topic(
     var id: Int = 0,
     var title: String = "",
     var description: String = "",
-    var status: Status = Status.CLOSED,
+    var status: Status = Status.UNKNOWN,
     var author: User= User()
 ) {
-    enum class Status { OPEN, CLOSED }
+    enum class Status { OPEN, CLOSED, UNKNOWN }
 }
