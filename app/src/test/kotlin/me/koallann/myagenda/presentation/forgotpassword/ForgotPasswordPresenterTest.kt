@@ -1,7 +1,10 @@
 package me.koallann.myagenda.presentation.forgotpassword
 
 import io.reactivex.Completable
+import io.reactivex.Single
+import me.koallann.myagenda.R
 import me.koallann.myagenda.data.user.UserRepository
+import me.koallann.myagenda.domain.Credentials
 import me.koallann.support.handlers.ErrorHandler
 import me.koallann.support.rxschedulers.ImmediateSchedulerProvider
 import org.junit.After
@@ -59,6 +62,32 @@ class ForgotPasswordPresenterTest {
 
         verify(userRepository, only()).sendRecoveryEmail(toEmail)
         verify(view, times(1)).onRecoveryEmailSent()
+    }
+
+    @Test
+    fun `Should show a specific message when the email doesn't exists`() {
+        val toEmail = "john.doe@acme.com"
+        val error = IllegalArgumentException("User doesn't exists")
+
+        `when`(view.validateEmailField()).thenReturn(true)
+        `when`(userRepository.sendRecoveryEmail(toEmail)).thenReturn(Completable.error(error))
+
+        presenter.onClickSendRecoveryEmail(toEmail)
+
+        verify(view).showMessage(R.string.msg_email_doesnt_exists)
+    }
+
+    @Test
+    fun `Should show a default message when an unknown error occurs`() {
+        val toEmail = "john.doe@acme.com"
+        val error = Throwable("Unknown error")
+
+        `when`(view.validateEmailField()).thenReturn(true)
+        `when`(userRepository.sendRecoveryEmail(toEmail)).thenReturn(Completable.error(error))
+
+        presenter.onClickSendRecoveryEmail(toEmail)
+
+        verify(view).showMessage(R.string.msg_cannot_recover_email)
     }
 
 }

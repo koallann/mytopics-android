@@ -64,7 +64,7 @@ class SignUpPresenterTest {
     }
 
     @Test
-    fun `Should show a specific error message when the given email is already in use`() {
+    fun `Should show a specific message when the given email is already in use`() {
         val user = User("John Doe", "john.doe@acme.com", User.Secret("123456"))
         val error = SQLiteConstraintException("This email is already in use")
 
@@ -78,7 +78,7 @@ class SignUpPresenterTest {
     }
 
     @Test
-    fun `Should show a specific error message when an unknown errors occurs`() {
+    fun `Should show a default message when an unknown error occurs`() {
         val user = User("John Doe", "john.doe@acme.com", User.Secret("123456"))
         val error = Throwable("Unknown error")
 
