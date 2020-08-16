@@ -1,31 +1,36 @@
-package me.koallann.myagenda.presentation.signin
+package me.koallann.myagenda.presentation.forgotpassword
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import br.com.ilhasoft.support.validation.Validator
 import me.koallann.myagenda.R
 import me.koallann.myagenda.data.user.UserRepositoryImpl
-import me.koallann.myagenda.databinding.ActivitySigninBinding
-import me.koallann.myagenda.domain.Credentials
+import me.koallann.myagenda.databinding.ActivityForgotPasswordBinding
 import me.koallann.myagenda.local.user.UserDaoClient
-import me.koallann.myagenda.presentation.forgotpassword.ForgotPasswordActivity
-import me.koallann.myagenda.presentation.signup.SignUpActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 
-class SignInActivity : BaseActivity(), SignInView {
+class ForgotPasswordActivity : BaseActivity(), ForgotPasswordView {
 
-    private val binding: ActivitySigninBinding by lazy {
-        ActivitySigninBinding.inflate(layoutInflater)
+    companion object {
+        fun createIntent(context: Context): Intent =
+            Intent(context, ForgotPasswordActivity::class.java)
+    }
+
+    private val binding: ActivityForgotPasswordBinding by lazy {
+        ActivityForgotPasswordBinding.inflate(layoutInflater)
     }
     private val validator: Validator by lazy {
         Validator(binding)
     }
-    private val presenter: SignInPresenter by lazy {
-        SignInPresenter(
+    private val presenter: ForgotPasswordPresenter by lazy {
+        ForgotPasswordPresenter(
             UserRepositoryImpl(UserDaoClient(this)),
             StandardSchedulerProvider(),
-            SignInErrorHandler()
+            ForgotPasswordErrorHandler()
         )
     }
 
@@ -51,34 +56,26 @@ class SignInActivity : BaseActivity(), SignInView {
         setFormEnabled(true)
     }
 
-    override fun validateCredentialsFields(): Boolean = validator.validate()
+    override fun validateEmailField(): Boolean = validator.validate()
 
-    override fun navigateToSignUp() {
-        startActivity(SignUpActivity.createIntent(this))
-    }
-
-    override fun navigateToForgotPassword() {
-        startActivity(ForgotPasswordActivity.createIntent(this))
-    }
-
-    override fun navigateToHome() {
-        showMessage("onNavigateToHome")
+    override fun onRecoveryEmailSent() {
+        Toast.makeText(this, R.string.msg_recovery_email_sent, Toast.LENGTH_LONG).show()
+        finish()
     }
 
     private fun setupUI() {
         binding.also {
             it.presenter = presenter
-            it.credentials = Credentials()
+            it.toEmail = ""
         }
     }
 
     private fun setFormEnabled(enabled: Boolean) {
         binding.apply {
             email.isEnabled = enabled
-            password.isEnabled = enabled
-            signin.isEnabled = enabled
-            signin.setText(
-                if (enabled) R.string.label_signin
+            sendEmail.isEnabled = enabled
+            sendEmail.setText(
+                if (enabled) R.string.label_send_email
                 else R.string.label_loading
             )
         }

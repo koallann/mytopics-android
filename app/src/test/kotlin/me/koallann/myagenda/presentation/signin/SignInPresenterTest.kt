@@ -79,7 +79,7 @@ class SignInPresenterTest {
     }
 
     @Test
-    fun `Should show a specific error message when the user doesn't exists`() {
+    fun `Should show a specific message when the user doesn't exists`() {
         val credentials = Credentials("john.doe@acme.com", "123456")
         val error = EmptyResultSetException("User doesn't exists")
 
@@ -93,7 +93,7 @@ class SignInPresenterTest {
     }
 
     @Test
-    fun `Should show a specific error message when the credentials are wrong`() {
+    fun `Should show a specific message when the credentials are wrong`() {
         val credentials = Credentials("john.doe@acme.com", "123456")
         val error = IllegalArgumentException("Wrong password")
 
@@ -107,7 +107,7 @@ class SignInPresenterTest {
     }
 
     @Test
-    fun `Should show a default error message when an unknown error occurs`() {
+    fun `Should show a default message when an unknown error occurs`() {
         val credentials = Credentials("john.doe@acme.com", "123456")
         val error = Throwable("Unknown error")
 

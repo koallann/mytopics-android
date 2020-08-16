@@ -1,6 +1,5 @@
 package me.koallann.myagenda.data.user
 
-import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import me.koallann.myagenda.domain.Credentials
@@ -15,5 +14,7 @@ interface UserLocalDataSource {
     fun signInUser(credentials: Credentials): Single<User>
 
     fun createUser(user: User): Single<User>
+
+    fun checkUserExists(email: String): Single<Boolean>
 
 }
