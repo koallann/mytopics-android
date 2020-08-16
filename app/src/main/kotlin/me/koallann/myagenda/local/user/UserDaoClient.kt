@@ -1,6 +1,7 @@
 package me.koallann.myagenda.local.user
 
 import android.content.Context
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import me.koallann.myagenda.data.user.UserLocalDataSource
@@ -37,16 +38,34 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
     }
 
     override fun signInUser(credentials: Credentials): Single<User> {
-        return Single.timer(2, TimeUnit.SECONDS)
-            .flatMap { userDao.findByEmail(credentials.email) }
+        return Completable.timer(2, TimeUnit.SECONDS)
+            .andThen(userDao.findByEmail(credentials.email))
             .flatMap {
                 if (it.password == credentials.password) {
+                    preferences.put(KEY_SIGNED_EMAIL, credentials.email)
                     Single.just(it)
                 } else {
                     Single.error(IllegalArgumentException("Wrong password"))
                 }
             }
             .map { it.toDomain() }
+    }
+
+    override fun createUser(user: User): Single<User> {
+        val password =
+            user.secret?.password ?: throw IllegalArgumentException("Password is not set")
+
+        return Completable.timer(2, TimeUnit.SECONDS)
+            .andThen(
+                userDao.insert(
+                    UserEntity(
+                        name = user.name,
+                        email = user.email,
+                        password = password
+                    )
+                )
+            )
+            .andThen(signInUser(Credentials(user.email, password)))
     }
 
 }

@@ -1,30 +1,35 @@
-package me.koallann.myagenda.presentation.signin
+package me.koallann.myagenda.presentation.signup
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import br.com.ilhasoft.support.validation.Validator
 import me.koallann.myagenda.R
 import me.koallann.myagenda.data.user.UserRepositoryImpl
-import me.koallann.myagenda.databinding.ActivitySigninBinding
-import me.koallann.myagenda.domain.Credentials
+import me.koallann.myagenda.databinding.ActivitySignupBinding
+import me.koallann.myagenda.domain.User
 import me.koallann.myagenda.local.user.UserDaoClient
-import me.koallann.myagenda.presentation.signup.SignUpActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 
-class SignInActivity : BaseActivity(), SignInView {
+class SignUpActivity : BaseActivity(), SignUpView {
 
-    private val binding: ActivitySigninBinding by lazy {
-        ActivitySigninBinding.inflate(layoutInflater)
+    companion object {
+        fun createIntent(context: Context) = Intent(context, SignUpActivity::class.java)
+    }
+
+    private val binding: ActivitySignupBinding by lazy {
+        ActivitySignupBinding.inflate(layoutInflater)
     }
     private val validator: Validator by lazy {
         Validator(binding)
     }
-    private val presenter: SignInPresenter by lazy {
-        SignInPresenter(
+    private val presenter: SignUpPresenter by lazy {
+        SignUpPresenter(
             UserRepositoryImpl(UserDaoClient(this)),
             StandardSchedulerProvider(),
-            SignInErrorHandler()
+            SignUpErrorHandler()
         )
     }
 
@@ -50,15 +55,7 @@ class SignInActivity : BaseActivity(), SignInView {
         setFormEnabled(true)
     }
 
-    override fun validateCredentialsFields(): Boolean = validator.validate()
-
-    override fun navigateToSignUp() {
-        startActivity(SignUpActivity.createIntent(this))
-    }
-
-    override fun navigateToForgotPassword() {
-        showMessage("onNavigateToForgotPassword")
-    }
+    override fun validateUserFields(): Boolean = validator.validate()
 
     override fun navigateToHome() {
         showMessage("onNavigateToHome")
@@ -67,17 +64,19 @@ class SignInActivity : BaseActivity(), SignInView {
     private fun setupUI() {
         binding.also {
             it.presenter = presenter
-            it.credentials = Credentials()
+            it.user = User(secret = User.Secret())
         }
     }
 
     private fun setFormEnabled(enabled: Boolean) {
         binding.apply {
+            name.isEnabled = enabled
             email.isEnabled = enabled
             password.isEnabled = enabled
-            signin.isEnabled = enabled
-            signin.setText(
-                if (enabled) R.string.label_signin
+            confirmPassword.isEnabled = enabled
+            signup.isEnabled = enabled
+            signup.setText(
+                if (enabled) R.string.label_signup
                 else R.string.label_loading
             )
         }
