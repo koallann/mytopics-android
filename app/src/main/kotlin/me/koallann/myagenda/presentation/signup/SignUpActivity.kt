@@ -5,8 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import br.com.ilhasoft.support.validation.Validator
+import me.koallann.myagenda.R
+import me.koallann.myagenda.data.user.UserRepositoryImpl
 import me.koallann.myagenda.databinding.ActivitySignupBinding
 import me.koallann.myagenda.domain.User
+import me.koallann.myagenda.local.user.UserDaoClient
+import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 
 class SignUpActivity : BaseActivity(), SignUpView {
@@ -22,7 +26,11 @@ class SignUpActivity : BaseActivity(), SignUpView {
         Validator(binding)
     }
     private val presenter: SignUpPresenter by lazy {
-        SignUpPresenter()
+        SignUpPresenter(
+            UserRepositoryImpl(UserDaoClient(this)),
+            StandardSchedulerProvider(),
+            SignUpErrorHandler()
+        )
     }
 
     override fun getContentView(): View = binding.root
@@ -39,16 +47,38 @@ class SignUpActivity : BaseActivity(), SignUpView {
         super.onDestroy()
     }
 
+    override fun showLoading() {
+        setFormEnabled(false)
+    }
+
+    override fun dismissLoading() {
+        setFormEnabled(true)
+    }
+
     override fun validateUserFields(): Boolean = validator.validate()
 
     override fun navigateToHome() {
-        TODO("Not yet implemented")
+        showMessage("onNavigateToHome")
     }
 
     private fun setupUI() {
         binding.also {
             it.presenter = presenter
             it.user = User(secret = User.Secret())
+        }
+    }
+
+    private fun setFormEnabled(enabled: Boolean) {
+        binding.apply {
+            name.isEnabled = enabled
+            email.isEnabled = enabled
+            password.isEnabled = enabled
+            confirmPassword.isEnabled = enabled
+            signup.isEnabled = enabled
+            signup.setText(
+                if (enabled) R.string.label_signup
+                else R.string.label_loading
+            )
         }
     }
 

@@ -1,6 +1,8 @@
 package me.koallann.myagenda.presentation.signup
 
-interface SignUpView {
+import me.koallann.support.mvp.BasicView
+
+interface SignUpView : BasicView {
 
     fun validateUserFields(): Boolean
 
