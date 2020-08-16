@@ -2,6 +2,7 @@ package me.koallann.myagenda.local.topic
 
 import androidx.room.*
 import me.koallann.myagenda.domain.Topic
+import me.koallann.myagenda.domain.User
 import me.koallann.myagenda.local.user.UserEntity
 
 @Entity(
@@ -16,12 +17,14 @@ import me.koallann.myagenda.local.user.UserEntity
     ],
     indices = [Index(name = "user", value = ["user_id"])]
 )
-data class TopicEntity(
+open class TopicEntity {
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val title: String,
-    val description: String,
-    val status: Topic.Status,
+    var id: Int = 0
+    var title: String = ""
+    var description: String = ""
+    var status: Topic.Status = Topic.Status.UNKNOWN
     @ColumnInfo(name = "user_id")
-    val userID: Int
-)
+    var userId: Int = 0
+    @Ignore
+    open var user: UserEntity = UserEntity()
+}

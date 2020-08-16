@@ -11,13 +11,12 @@ import me.koallann.myagenda.local.topic.TopicEntity
     tableName = "users_user",
     indices = [Index(name = "email", unique = true, value = ["email"])]
 )
-data class UserEntity(
+class UserEntity{
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val name: String,
-    val email: String,
-    val password: String
-) {
+    var id: Int = 0
+    var name: String = ""
+    var email: String = ""
+    var password: String = ""
 
     fun toDomain(): User = User(id, name, email)
 
