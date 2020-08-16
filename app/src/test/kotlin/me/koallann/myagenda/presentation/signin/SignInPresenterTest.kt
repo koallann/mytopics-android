@@ -120,4 +120,17 @@ class SignInPresenterTest {
         verify(view, never()).navigateToHome()
     }
 
+    @Test
+    fun `Should navigate to home if the credentials are okay`() {
+        val credentials = Credentials("john.doe@acme.com", "654321")
+        val user = User("John Doe", "john.doe@acme.org")
+
+        `when`(view.validateCredentialsFields()).thenReturn(true)
+        `when`(userRepository.signInUser(credentials)).thenReturn(Single.just(user))
+
+        presenter.onClickSignIn(credentials)
+
+        verify(view, times(1)).navigateToHome()
+    }
+
 }
