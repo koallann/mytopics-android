@@ -16,11 +16,12 @@
     <string name="msg_wrong_credentials">Wrong password.</string>
     <string name="msg_cannot_signin">Unable to sign in.</string>
 
-    <!-- Sign In -->
+    <!-- Sign Up -->
 
     <string name="label_signup_msg">Sign up to your Agenda</string>
     <string name="label_name">Name</string>
     <string name="label_confirm_password">Confirm Password</string>
+    <string name="msg_sign_up_success">Your account was created, sign in now!</string>
     <string name="msg_email_already_used">This email is already in use.</string>
     <string name="msg_cannot_signup">Unable to sign up.</string>
 
@@ -31,5 +32,10 @@
     <string name="msg_recovery_email_sent">A recovery email was sent to you.</string>
     <string name="msg_email_doesnt_exists">This email doesn\'t exists.</string>
     <string name="msg_cannot_recover_email">Unable to send a recovery email.</string>
+
+    <!-- Home -->
+
+    <string name="label_open_topics">Open</string>
+    <string name="label_closed_topics">Closed</string>
 
 </resources>

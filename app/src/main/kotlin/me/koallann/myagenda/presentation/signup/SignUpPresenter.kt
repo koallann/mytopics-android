@@ -32,7 +32,7 @@ class SignUpPresenter(
             .setLoadingView(view)
             .subscribe(
                 {
-                    view?.navigateToHome()
+                    view?.onUserRegistered()
                 },
                 { throwable ->
                     view?.let { errorHandler.showMessageForError(it, throwable) }

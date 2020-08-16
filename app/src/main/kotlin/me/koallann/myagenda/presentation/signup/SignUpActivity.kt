@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import br.com.ilhasoft.support.validation.Validator
 import me.koallann.myagenda.R
 import me.koallann.myagenda.data.user.UserRepositoryImpl
@@ -57,8 +58,9 @@ class SignUpActivity : BaseActivity(), SignUpView {
 
     override fun validateUserFields(): Boolean = validator.validate()
 
-    override fun navigateToHome() {
-        showMessage("onNavigateToHome")
+    override fun onUserRegistered() {
+        Toast.makeText(this, R.string.msg_sign_up_success, Toast.LENGTH_LONG).show()
+        finish()
     }
 
     private fun setupUI() {

@@ -65,7 +65,10 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
                     )
                 )
             )
-            .andThen(signInUser(Credentials(user.email, password)))
+            .toSingle {
+                user.secret = null
+                user
+            }
     }
 
     override fun checkUserExists(email: String): Single<Boolean> {

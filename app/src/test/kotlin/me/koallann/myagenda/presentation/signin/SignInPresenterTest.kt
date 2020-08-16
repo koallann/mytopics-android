@@ -121,7 +121,7 @@ class SignInPresenterTest {
     }
 
     @Test
-    fun `Should navigate to home if the credentials are okay`() {
+    fun `Should navigate to home when the credentials are okay`() {
         val credentials = Credentials("john.doe@acme.com", "654321")
         val user = User("John Doe", "john.doe@acme.org")
 
@@ -129,6 +129,24 @@ class SignInPresenterTest {
         `when`(userRepository.signInUser(credentials)).thenReturn(Single.just(user))
 
         presenter.onClickSignIn(credentials)
+
+        verify(view, times(1)).navigateToHome()
+    }
+
+    @Test
+    fun `Should not navigate to home when we don't have an user on signing check`() {
+        `when`(userRepository.hasUserSigned()).thenReturn(false)
+
+        presenter.onCheckSignedUser()
+
+        verify(view, never()).navigateToHome()
+    }
+
+    @Test
+    fun `Should navigate to home when we have an user on signing check`() {
+        `when`(userRepository.hasUserSigned()).thenReturn(true)
+
+        presenter.onCheckSignedUser()
 
         verify(view, times(1)).navigateToHome()
     }

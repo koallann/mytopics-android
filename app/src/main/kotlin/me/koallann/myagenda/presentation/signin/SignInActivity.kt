@@ -9,6 +9,7 @@ import me.koallann.myagenda.databinding.ActivitySigninBinding
 import me.koallann.myagenda.domain.Credentials
 import me.koallann.myagenda.local.user.UserDaoClient
 import me.koallann.myagenda.presentation.forgotpassword.ForgotPasswordActivity
+import me.koallann.myagenda.presentation.home.HomeActivity
 import me.koallann.myagenda.presentation.signup.SignUpActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
@@ -32,8 +33,10 @@ class SignInActivity : BaseActivity(), SignInView {
     override fun getContentView(): View = binding.root
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         presenter.attachView(this)
+        presenter.onCheckSignedUser()
+
+        super.onCreate(savedInstanceState)
         setupUI()
     }
 
@@ -62,7 +65,7 @@ class SignInActivity : BaseActivity(), SignInView {
     }
 
     override fun navigateToHome() {
-        showMessage("onNavigateToHome")
+        startActivity(HomeActivity.createIntent(this))
     }
 
     private fun setupUI() {
