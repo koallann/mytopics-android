@@ -22,7 +22,7 @@ class ForgotPasswordPresenter(
         disposables.clear()
     }
 
-    fun onSendRecoveryEmail(toEmail: String) {
+    fun onClickSendRecoveryEmail(toEmail: String) {
         if (view?.validateEmailField() != true) {
             return
         }
