@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import me.koallann.myagenda.data.topic.TopicRepositoryImpl
 import me.koallann.myagenda.databinding.FragmentTopicsBinding
 import me.koallann.myagenda.databinding.ItemTopicBinding
 import me.koallann.myagenda.domain.Topic
+import me.koallann.myagenda.local.topic.TopicDaoClient
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseFragment
 import me.koallann.support.ui.list.AutoRecyclerAdapter
+import java.lang.IllegalArgumentException
 
 class TopicsFragment : BaseFragment(), TopicsView {
 
@@ -39,6 +42,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
     private val presenter: TopicsPresenter by lazy {
         TopicsPresenter(
+            TopicRepositoryImpl(TopicDaoClient(requireContext())),
             StandardSchedulerProvider(),
             TopicsErrorHandler()
         )
@@ -50,6 +54,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         setupUI()
+        presenter.onLoadTopics(getStatusFilter())
     }
 
     override fun onDestroy() {
@@ -58,16 +63,25 @@ class TopicsFragment : BaseFragment(), TopicsView {
         super.onDestroy()
     }
 
+    override fun addTopics(topics: List<Topic>) {
+        topicsAdapter.addAll(topics)
+    }
+
+    private fun getStatusFilter(): Topic.Status {
+        val extra = arguments?.getString(EXTRA_STATUS_FILTER) ?: ""
+        return try {
+            Topic.Status.valueOf(extra)
+        } catch (e: IllegalArgumentException) {
+            Topic.Status.UNKNOWN
+        }
+    }
+
     private fun setupUI() {
         binding.topics.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = topicsAdapter
         }
-    }
-
-    override fun addTopics(topics: List<Topic>) {
-        TODO("Not yet implemented")
     }
 
 }

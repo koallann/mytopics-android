@@ -7,7 +7,7 @@ import me.koallann.myagenda.domain.User
 
 interface TopicRepository {
 
-    fun getTopicsByUser(user: User): Single<List<Topic>>
+    fun getTopicsByStatus(status: Topic.Status): Single<List<Topic>>
 
     fun createTopic(topic: Topic): Completable
 

@@ -10,8 +10,8 @@ import me.koallann.myagenda.domain.Topic
 @Dao
 interface TopicDao {
 
-    @Query("SELECT * FROM topics_topic WHERE user_id = :userId")
-    fun findByUser(userId: Int): Single<List<TopicEntityWithUser>>
+    @Query("SELECT * FROM topics_topic WHERE status = :status")
+    fun findByStatus(status: Topic.Status): Single<List<TopicEntityWithUser>>
 
     @Insert
     fun insert(topic: TopicEntity): Completable

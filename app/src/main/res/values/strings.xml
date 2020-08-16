@@ -43,5 +43,6 @@
 
     <string name="label_open_topics">Open</string>
     <string name="label_closed_topics">Closed</string>
+    <string name="msg_cannot_load_topics">Unable to load topics.</string>
 
 </resources>
