@@ -16,6 +16,10 @@
             type="me.koallann.myagenda.domain.Topic" />
 
         <variable
+            name="signedUser"
+            type="me.koallann.myagenda.domain.User" />
+
+        <variable
             name="collapsed"
             type="androidx.databinding.ObservableBoolean" />
 
@@ -66,10 +70,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:onClick="@{() -> topic.status == Status.OPEN ? presenter.onClickCloseTopic(topic) : presenter.onClickReopenTopic(topic)}"
             android:text="@{topic.status == Status.OPEN ? @string/label_close : @string/label_reopen}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details"
-            app:visible="@{collapsed}"
+            app:visible="@{topic.author.id == signedUser.id &amp;&amp; collapsed}"
             tools:text="@string/label_close" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

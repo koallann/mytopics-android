@@ -3,7 +3,6 @@ package me.koallann.myagenda.data.topic
 import io.reactivex.Completable
 import io.reactivex.Single
 import me.koallann.myagenda.domain.Topic
-import me.koallann.myagenda.domain.User
 
 interface TopicRepository {
 

@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import me.koallann.myagenda.R
 import me.koallann.myagenda.data.topic.TopicRepositoryImpl
+import me.koallann.myagenda.data.user.UserRepositoryImpl
 import me.koallann.myagenda.databinding.FragmentTopicsBinding
 import me.koallann.myagenda.databinding.ItemTopicBinding
 import me.koallann.myagenda.domain.Topic
+import me.koallann.myagenda.domain.User
 import me.koallann.myagenda.local.topic.TopicDaoClient
+import me.koallann.myagenda.local.user.UserDaoClient
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseFragment
 import me.koallann.support.ui.list.AutoRecyclerAdapter
@@ -27,6 +32,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     private val binding: FragmentTopicsBinding by lazy {
         FragmentTopicsBinding.inflate(layoutInflater)
     }
+    private var signedUser: User? = null
     private val onCreateViewHolder: (
         layoutInflater: LayoutInflater,
         parent: ViewGroup,
@@ -34,7 +40,8 @@ class TopicsFragment : BaseFragment(), TopicsView {
     ) -> TopicViewHolder = { layoutInflater, parent, _ ->
         TopicViewHolder(
             ItemTopicBinding.inflate(layoutInflater, parent, false),
-            presenter
+            presenter,
+            signedUser
         )
     }
     private val topicsAdapter: AutoRecyclerAdapter<Topic, TopicViewHolder> by lazy {
@@ -45,6 +52,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     private val presenter: TopicsPresenter by lazy {
         TopicsPresenter(
             TopicRepositoryImpl(TopicDaoClient(requireContext())),
+            UserRepositoryImpl(UserDaoClient(requireContext())),
             StandardSchedulerProvider(),
             TopicsErrorHandler()
         )
@@ -62,6 +70,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+        presenter.onLoadUser()
         setupLayout()
         presenter.onLoadTopics(getStatusFilter())
     }
@@ -70,6 +79,10 @@ class TopicsFragment : BaseFragment(), TopicsView {
         presenter.stop()
         presenter.detachView()
         super.onDestroy()
+    }
+
+    override fun onUserLoaded(user: User) {
+        signedUser = user
     }
 
     override fun addTopics(topics: List<Topic>) {
@@ -82,6 +95,38 @@ class TopicsFragment : BaseFragment(), TopicsView {
 
     override fun uncollapseTopic(topic: Topic) {
         getViewHolderForTopic(topic)?.collapsed?.set(false)
+    }
+
+    override fun onConfirmCloseTopic(topic: Topic) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.label_close)
+            .setMessage(R.string.msg_close_topic)
+            .setPositiveButton(R.string.label_ok) { dialog, _ ->
+                dialog.dismiss()
+                presenter.closeTopic(topic)
+            }
+            .setNegativeButton(R.string.label_cancel) { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    override fun onTopicClosed(topic: Topic) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onConfirmReopenTopic(topic: Topic) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.label_reopen)
+            .setMessage(R.string.msg_reopen_topic)
+            .setPositiveButton(R.string.label_ok) { dialog, _ ->
+                dialog.dismiss()
+                presenter.reopenTopic(topic)
+            }
+            .setNegativeButton(R.string.label_cancel) { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    override fun onTopicReopened(topic: Topic) {
+        TODO("Not yet implemented")
     }
 
     private fun getStatusFilter(): Topic.Status {
