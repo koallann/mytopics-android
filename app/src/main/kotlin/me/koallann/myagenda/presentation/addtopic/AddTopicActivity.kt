@@ -1,10 +1,13 @@
 package me.koallann.myagenda.presentation.addtopic
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import br.com.ilhasoft.support.validation.Validator
+import me.koallann.myagenda.R
 import me.koallann.myagenda.data.topic.TopicRepositoryImpl
 import me.koallann.myagenda.data.user.UserRepositoryImpl
 import me.koallann.myagenda.databinding.ActivityAddTopicBinding
@@ -17,6 +20,9 @@ import me.koallann.support.ui.BaseActivity
 class AddTopicActivity : BaseActivity(), AddTopicView {
 
     companion object {
+        const val REQUEST_CODE = 1000
+        const val RESULT_EXTRA_TOPIC = "topic"
+
         fun createIntent(context: Context) = Intent(context, AddTopicActivity::class.java)
     }
 
@@ -49,16 +55,42 @@ class AddTopicActivity : BaseActivity(), AddTopicView {
         super.onDestroy()
     }
 
+    override fun showLoading() {
+        setFormEnabled(false)
+    }
+
+    override fun dismissLoading() {
+        setFormEnabled(true)
+    }
+
     override fun validateTopicFields(): Boolean = validator.validate()
 
     override fun onTopicAdded(topic: Topic) {
-        showMessage("onTopicAdded")
+        setResult(
+            Activity.RESULT_OK,
+            Intent().apply { putExtra(RESULT_EXTRA_TOPIC, topic) }
+        )
+        Toast.makeText(this, R.string.msg_topic_added, Toast.LENGTH_LONG).show()
+        finish()
     }
 
     private fun setupUI() {
         binding.also {
             it.presenter = presenter
             it.topic = Topic()
+        }
+    }
+
+    private fun setFormEnabled(enabled: Boolean) {
+        binding.apply {
+            title.isEnabled = enabled
+            briefDescription.isEnabled = enabled
+            details.isEnabled = enabled
+            add.isEnabled = enabled
+            add.setText(
+                if (enabled) R.string.label_add
+                else R.string.label_loading
+            )
         }
     }
 

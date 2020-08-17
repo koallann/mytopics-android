@@ -13,7 +13,6 @@ import me.koallann.myagenda.local.topic.TopicDaoClient
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseFragment
 import me.koallann.support.ui.list.AutoRecyclerAdapter
-import java.lang.IllegalArgumentException
 
 class TopicsFragment : BaseFragment(), TopicsView {
 
@@ -46,6 +45,13 @@ class TopicsFragment : BaseFragment(), TopicsView {
             StandardSchedulerProvider(),
             TopicsErrorHandler()
         )
+    }
+
+    val onNewTopic: (Topic) -> Unit = { topic ->
+        topicsAdapter.add(topic)
+        binding.topics.also {
+            it.scrollToPosition(topicsAdapter.size() - 1)
+        }
     }
 
     override fun getContentView(): View = binding.root
