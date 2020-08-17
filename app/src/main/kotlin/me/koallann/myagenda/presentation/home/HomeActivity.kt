@@ -40,6 +40,14 @@ class HomeActivity : AppCompatActivity() {
         setupLayout()
     }
 
+    /**
+     * Prevent memory leak in Android Q.
+     * See: https://issuetracker.google.com/issues/139738913
+    */
+    override fun onBackPressed() {
+        finishAfterTransition()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AddTopicActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
