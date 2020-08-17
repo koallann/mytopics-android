@@ -23,7 +23,8 @@ class TopicDaoClient(context: Context) : TopicLocalDataSource {
             .andThen(topicDao.insert(
                 TopicEntity().apply {
                     title = topic.title
-                    description = topic.description
+                    briefDescription = topic.briefDescription
+                    details = topic.details
                     status = topic.status
                     userId = topic.author.id
                 }

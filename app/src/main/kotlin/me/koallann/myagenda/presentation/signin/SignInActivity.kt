@@ -14,7 +14,7 @@ import me.koallann.myagenda.presentation.signup.SignUpActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 
-class SignInActivity : BaseActivity(), SignInView {
+class  SignInActivity : BaseActivity(), SignInView {
 
     private val binding: ActivitySigninBinding by lazy {
         ActivitySigninBinding.inflate(layoutInflater)
@@ -33,10 +33,9 @@ class SignInActivity : BaseActivity(), SignInView {
     override fun getContentView(): View = binding.root
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         presenter.attachView(this)
         presenter.onCheckSignedUser()
-
-        super.onCreate(savedInstanceState)
         setupUI()
     }
 

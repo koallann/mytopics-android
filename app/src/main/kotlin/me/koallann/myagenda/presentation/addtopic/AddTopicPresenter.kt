@@ -1,7 +1,9 @@
-package me.koallann.myagenda.presentation.topics
+package me.koallann.myagenda.presentation.addtopic
 
 import io.reactivex.disposables.CompositeDisposable
+import me.koallann.myagenda.R
 import me.koallann.myagenda.data.topic.TopicRepository
+import me.koallann.myagenda.data.user.UserRepository
 import me.koallann.myagenda.domain.Topic
 import me.koallann.support.extensions.addTo
 import me.koallann.support.extensions.fromIoToUiThread
@@ -10,11 +12,12 @@ import me.koallann.support.handlers.ErrorHandler
 import me.koallann.support.mvp.Presenter
 import me.koallann.support.rxschedulers.SchedulerProvider
 
-class TopicsPresenter(
+class AddTopicPresenter(
     private val topicRepository: TopicRepository,
+    private val userRepository: UserRepository,
     private val schedulerProvider: SchedulerProvider,
     private val errorHandler: ErrorHandler
-) : Presenter<TopicsView>(TopicsView::class.java) {
+) : Presenter<AddTopicView>(AddTopicView::class.java) {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
@@ -23,12 +26,23 @@ class TopicsPresenter(
         disposables.clear()
     }
 
-    fun onLoadTopics(filter: Topic.Status) {
-        topicRepository.getTopicsByStatus(filter)
+    fun onClickAddTopic(topic: Topic) {
+        if (view?.validateTopicFields() != true) {
+            return
+        }
+        val signedUser = userRepository.getSignedUser()
+        if (signedUser == null) {
+            view?.showMessage(R.string.msg_no_user_signed)
+            return
+        }
+        topic.author = signedUser
+        topic.status = Topic.Status.OPEN
+
+        topicRepository.createTopic(topic)
             .fromIoToUiThread(schedulerProvider)
             .setLoadingView(view)
             .subscribe(
-                { view?.addTopics(it) },
+                { view?.onTopicAdded(topic) },
                 { throwable -> view?.let { errorHandler.showMessageForError(it, throwable) } }
             )
             .addTo(disposables)

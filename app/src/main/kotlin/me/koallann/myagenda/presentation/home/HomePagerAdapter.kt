@@ -8,11 +8,20 @@ import me.koallann.myagenda.presentation.topics.TopicsFragment
 
 class HomePagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
+    private val openTopicsFragment: TopicsFragment by lazy {
+        TopicsFragment.newInstance(Topic.Status.OPEN)
+    }
+    val onNewTopic: (Topic) -> Unit = {
+        if (it.status == Topic.Status.OPEN) {
+            openTopicsFragment.onNewTopic(it)
+        }
+    }
+
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> TopicsFragment.newInstance(Topic.Status.OPEN)
+            0 -> openTopicsFragment
             1 -> TopicsFragment.newInstance(Topic.Status.CLOSED)
             else -> Fragment()
         }

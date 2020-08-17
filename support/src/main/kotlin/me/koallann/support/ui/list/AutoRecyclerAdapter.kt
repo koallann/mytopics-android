@@ -62,4 +62,8 @@ class AutoRecyclerAdapter<E, VH : ViewHolder<E>>(
         }
     }
 
+    fun size(): Int {
+        return items.size
+    }
+
 }

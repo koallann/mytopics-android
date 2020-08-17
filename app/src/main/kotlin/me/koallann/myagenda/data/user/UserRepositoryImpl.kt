@@ -1,7 +1,6 @@
 package me.koallann.myagenda.data.user
 
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Single
 import me.koallann.myagenda.domain.Credentials
 import me.koallann.myagenda.domain.User
@@ -13,7 +12,7 @@ class UserRepositoryImpl(private val localDataSource: UserLocalDataSource) : Use
         return localDataSource.hasUserSigned()
     }
 
-    override fun getSignedUser(): Maybe<User> {
+    override fun getSignedUser(): User? {
         return localDataSource.getSignedUser()
     }
 
