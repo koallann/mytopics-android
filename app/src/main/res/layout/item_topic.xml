@@ -34,7 +34,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{topic.description}"
+            android:text="@{topic.briefDescription}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="@string/lorem_ipsum" />

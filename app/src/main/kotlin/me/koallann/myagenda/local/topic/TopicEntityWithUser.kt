@@ -13,7 +13,8 @@ class TopicEntityWithUser : TopicEntity() {
     fun toDomain(): Topic = Topic(
         id,
         title,
-        description,
+        briefDescription,
+        details,
         status,
         user.toDomain()
     )

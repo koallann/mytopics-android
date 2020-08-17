@@ -21,7 +21,9 @@ open class TopicEntity {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var title: String = ""
-    var description: String = ""
+    @ColumnInfo(name = "brief_description")
+    var briefDescription: String = ""
+    var details: String = ""
     var status: Topic.Status = Topic.Status.UNKNOWN
     @ColumnInfo(name = "user_id")
     var userId: Int = 0
