@@ -43,12 +43,14 @@
 
     <string name="label_open_topics">Open</string>
     <string name="label_closed_topics">Closed</string>
-    <string name="msg_cannot_load_topics">Unable to load topics.</string>
+    <string name="msg_cannot_load_topics">Unable to load the topics.</string>
 
     <string name="label_add_topic">Add Topic</string>
     <string name="label_title">Title</string>
     <string name="label_brief_description">Brief Description</string>
     <string name="label_details">Details</string>
     <string name="label_add">Add</string>
+    <string name="msg_cannot_add_topic">Unable to add the topic.</string>
+    <string name="msg_no_user_signed">There\'s no user signed.</string>
 
 </resources>

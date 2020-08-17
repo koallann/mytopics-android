@@ -23,7 +23,7 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
     private val userDao: UserDao = AppDatabase.getInstance(context).getUserDao()
 
     override fun hasUserSigned(): Boolean {
-        return preferences.getString(KEY_SIGNED_USER_EMAIL, "").isNotEmpty()
+        return preferences.getInt(KEY_SIGNED_USER_ID, -1) != -1
     }
 
     override fun getSignedUser(): User? {
