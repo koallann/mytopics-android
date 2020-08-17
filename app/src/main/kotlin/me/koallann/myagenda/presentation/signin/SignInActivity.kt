@@ -1,5 +1,7 @@
 package me.koallann.myagenda.presentation.signin
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import br.com.ilhasoft.support.validation.Validator
@@ -15,6 +17,12 @@ import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 
 class  SignInActivity : BaseActivity(), SignInView {
+
+    companion object {
+        fun createIntent(context: Context) = Intent(context, SignInActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+    }
 
     private val binding: ActivitySigninBinding by lazy {
         ActivitySigninBinding.inflate(layoutInflater)
@@ -36,7 +44,7 @@ class  SignInActivity : BaseActivity(), SignInView {
         super.onCreate(savedInstanceState)
         presenter.attachView(this)
         presenter.onCheckSignedUser()
-        setupUI()
+        setupLayout()
     }
 
     override fun onDestroy() {
@@ -67,7 +75,7 @@ class  SignInActivity : BaseActivity(), SignInView {
         startActivity(HomeActivity.createIntent(this))
     }
 
-    private fun setupUI() {
+    private fun setupLayout() {
         binding.also {
             it.presenter = presenter
             it.credentials = Credentials()

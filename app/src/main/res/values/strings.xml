@@ -3,6 +3,9 @@
     <string name="app_name">My Agenda</string>
 
     <string name="label_loading">Loading…</string>
+    <string name="label_ok">OK</string>
+    <string name="label_cancel">Cancel</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -53,5 +56,10 @@
     <string name="msg_topic_added">Your topic was added!</string>
     <string name="msg_cannot_add_topic">Unable to add the topic.</string>
     <string name="msg_no_user_signed">There\'s no user signed.</string>
+
+    <!-- Profile  -->
+
+    <string name="label_signout">Sign Out</string>
+    <string name="msg_signout">Are you sure you want to sign out?</string>
 
 </resources>

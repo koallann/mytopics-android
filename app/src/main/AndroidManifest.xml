@@ -37,6 +37,10 @@
             android:name=".presentation.addtopic.AddTopicActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".presentation.profile.ProfileActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

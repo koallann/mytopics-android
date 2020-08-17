@@ -39,7 +39,7 @@ class SignUpActivity : BaseActivity(), SignUpView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.attachView(this)
-        setupUI()
+        setupLayout()
     }
 
     override fun onDestroy() {
@@ -58,12 +58,12 @@ class SignUpActivity : BaseActivity(), SignUpView {
 
     override fun validateUserFields(): Boolean = validator.validate()
 
-    override fun onUserRegistered() {
+    override fun navigateToSignIn() {
         Toast.makeText(this, R.string.msg_sign_up_success, Toast.LENGTH_LONG).show()
         finish()
     }
 
-    private fun setupUI() {
+    private fun setupLayout() {
         binding.also {
             it.presenter = presenter
             it.user = User(secret = User.Secret())

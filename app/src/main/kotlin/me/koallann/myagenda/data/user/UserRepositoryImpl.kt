@@ -35,4 +35,8 @@ class UserRepositoryImpl(private val localDataSource: UserLocalDataSource) : Use
             }
     }
 
+    override fun signOutUser(): Completable {
+        return localDataSource.signOutUser()
+    }
+
 }

@@ -90,4 +90,9 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
         }
     }
 
+    override fun signOutUser(): Completable {
+        return Completable.timer(2, TimeUnit.SECONDS)
+            .andThen(Completable.fromCallable { preferences.clear() })
+    }
+
 }
