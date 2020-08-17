@@ -46,7 +46,7 @@ class AddTopicActivity : BaseActivity(), AddTopicView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.attachView(this)
-        setupUI()
+        setupLayout()
     }
 
     override fun onDestroy() {
@@ -74,7 +74,7 @@ class AddTopicActivity : BaseActivity(), AddTopicView {
         finish()
     }
 
-    private fun setupUI() {
+    private fun setupLayout() {
         binding.also {
             it.presenter = presenter
             it.topic = Topic()

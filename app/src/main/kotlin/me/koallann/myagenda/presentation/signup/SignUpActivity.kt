@@ -39,7 +39,7 @@ class SignUpActivity : BaseActivity(), SignUpView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.attachView(this)
-        setupUI()
+        setupLayout()
     }
 
     override fun onDestroy() {
@@ -63,7 +63,7 @@ class SignUpActivity : BaseActivity(), SignUpView {
         finish()
     }
 
-    private fun setupUI() {
+    private fun setupLayout() {
         binding.also {
             it.presenter = presenter
             it.user = User(secret = User.Secret())

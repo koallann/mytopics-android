@@ -36,7 +36,7 @@ class  SignInActivity : BaseActivity(), SignInView {
         super.onCreate(savedInstanceState)
         presenter.attachView(this)
         presenter.onCheckSignedUser()
-        setupUI()
+        setupLayout()
     }
 
     override fun onDestroy() {
@@ -67,7 +67,7 @@ class  SignInActivity : BaseActivity(), SignInView {
         startActivity(HomeActivity.createIntent(this))
     }
 
-    private fun setupUI() {
+    private fun setupLayout() {
         binding.also {
             it.presenter = presenter
             it.credentials = Credentials()

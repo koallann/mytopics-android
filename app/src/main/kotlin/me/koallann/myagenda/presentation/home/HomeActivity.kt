@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupUI()
+        setupLayout()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -48,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupUI() {
+    private fun setupLayout() {
         binding.pager.adapter = pagerAdapter
         binding.addTopic.setOnClickListener {
             startActivityForResult(

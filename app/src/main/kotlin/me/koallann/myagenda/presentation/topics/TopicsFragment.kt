@@ -59,7 +59,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        setupUI()
+        setupLayout()
         presenter.onLoadTopics(getStatusFilter())
     }
 
@@ -82,7 +82,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
         }
     }
 
-    private fun setupUI() {
+    private fun setupLayout() {
         binding.topics.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
