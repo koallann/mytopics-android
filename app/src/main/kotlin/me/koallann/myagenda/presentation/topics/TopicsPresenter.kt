@@ -19,8 +19,8 @@ class TopicsPresenter(
     private val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun stop() {
-        disposables.clear()
         super.stop()
+        disposables.clear()
     }
 
     fun onLoadTopics(filter: Topic.Status) {

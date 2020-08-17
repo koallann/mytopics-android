@@ -39,10 +39,16 @@
     <string name="msg_email_doesnt_exists">This email doesn\'t exists.</string>
     <string name="msg_cannot_recover_email">Unable to send a recovery email.</string>
 
-    <!-- Home -->
+    <!-- Topics -->
 
     <string name="label_open_topics">Open</string>
     <string name="label_closed_topics">Closed</string>
     <string name="msg_cannot_load_topics">Unable to load topics.</string>
+
+    <string name="label_add_topic">Add Topic</string>
+    <string name="label_title">Title</string>
+    <string name="label_brief_description">Brief Description</string>
+    <string name="label_details">Details</string>
+    <string name="label_add">Add</string>
 
 </resources>

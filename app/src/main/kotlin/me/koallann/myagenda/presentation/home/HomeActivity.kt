@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayoutMediator
 import me.koallann.myagenda.R
 import me.koallann.myagenda.databinding.ActivityHomeBinding
+import me.koallann.myagenda.presentation.addtopic.AddTopicActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -36,6 +37,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupUI() {
         binding.pager.adapter = HomePagerAdapter(this)
+        binding.addTopic.setOnClickListener { startActivity(AddTopicActivity.createIntent(this)) }
         tabLayoutMediator.attach()
     }
 
