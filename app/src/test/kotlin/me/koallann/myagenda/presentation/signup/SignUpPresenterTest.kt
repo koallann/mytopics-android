@@ -48,7 +48,7 @@ class SignUpPresenterTest {
         presenter.onClickSignUp(user)
 
         verify(userRepository, never()).createUser(user)
-        verify(view, never()).onUserRegistered()
+        verify(view, never()).navigateToSignIn()
     }
 
     @Test
@@ -74,7 +74,7 @@ class SignUpPresenterTest {
         presenter.onClickSignUp(user)
 
         verify(view).showMessage(R.string.msg_email_already_used)
-        verify(view, never()).onUserRegistered()
+        verify(view, never()).navigateToSignIn()
     }
 
     @Test
@@ -88,7 +88,7 @@ class SignUpPresenterTest {
         presenter.onClickSignUp(user)
 
         verify(view).showMessage(R.string.msg_cannot_signup)
-        verify(view, never()).onUserRegistered()
+        verify(view, never()).navigateToSignIn()
     }
 
     @Test
@@ -100,7 +100,7 @@ class SignUpPresenterTest {
 
         presenter.onClickSignUp(user)
 
-        verify(view, times(1)).onUserRegistered()
+        verify(view, times(1)).navigateToSignIn()
     }
 
 }

@@ -17,4 +17,6 @@ interface UserRepository {
 
     fun sendRecoveryEmail(toEmail: String): Completable
 
+    fun signOutUser(): Completable
+
 }

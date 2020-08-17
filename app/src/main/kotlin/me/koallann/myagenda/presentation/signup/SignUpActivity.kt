@@ -58,7 +58,7 @@ class SignUpActivity : BaseActivity(), SignUpView {
 
     override fun validateUserFields(): Boolean = validator.validate()
 
-    override fun onUserRegistered() {
+    override fun navigateToSignIn() {
         Toast.makeText(this, R.string.msg_sign_up_success, Toast.LENGTH_LONG).show()
         finish()
     }

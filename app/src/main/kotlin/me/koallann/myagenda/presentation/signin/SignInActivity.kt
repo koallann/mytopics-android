@@ -1,5 +1,7 @@
 package me.koallann.myagenda.presentation.signin
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import br.com.ilhasoft.support.validation.Validator
@@ -15,6 +17,12 @@ import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 
 class  SignInActivity : BaseActivity(), SignInView {
+
+    companion object {
+        fun createIntent(context: Context) = Intent(context, SignInActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+    }
 
     private val binding: ActivitySigninBinding by lazy {
         ActivitySigninBinding.inflate(layoutInflater)
