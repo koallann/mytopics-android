@@ -3,7 +3,6 @@ package me.koallann.myagenda.local.user
 import android.content.Context
 import androidx.room.EmptyResultSetException
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Single
 import me.koallann.myagenda.data.user.UserLocalDataSource
 import me.koallann.myagenda.domain.Credentials
@@ -15,27 +14,28 @@ import java.util.concurrent.TimeUnit
 class UserDaoClient(context: Context) : UserLocalDataSource {
 
     companion object {
-        private const val KEY_SIGNED_EMAIL = "signed_email"
+        private const val KEY_SIGNED_USER_ID = "user_id"
+        private const val KEY_SIGNED_USER_NAME = "user_name"
+        private const val KEY_SIGNED_USER_EMAIL = "user_email"
     }
 
     private val preferences: SharedPreferences = SharedPreferences(context)
     private val userDao: UserDao = AppDatabase.getInstance(context).getUserDao()
 
     override fun hasUserSigned(): Boolean {
-        return preferences.getString(KEY_SIGNED_EMAIL, "").isNotEmpty()
+        return preferences.getString(KEY_SIGNED_USER_EMAIL, "").isNotEmpty()
     }
 
-    override fun getSignedUser(): Maybe<User> {
-        return Maybe.create { emitter ->
-            val signedEmail = preferences.getString(KEY_SIGNED_EMAIL, "")
-
-            if (signedEmail.isEmpty()) {
-                emitter.onComplete()
-            } else {
-                userDao.findByEmail(signedEmail)
-                    .map { it.toDomain() }
-            }
+    override fun getSignedUser(): User? {
+        val id = preferences.getInt(KEY_SIGNED_USER_ID, -1)
+        if (id == -1) {
+            return null
         }
+        return User(
+            id,
+            preferences.getString(KEY_SIGNED_USER_NAME, ""),
+            preferences.getString(KEY_SIGNED_USER_EMAIL, "")
+        )
     }
 
     override fun signInUser(credentials: Credentials): Single<User> {
@@ -43,7 +43,11 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
             .andThen(userDao.findByEmail(credentials.email))
             .flatMap {
                 if (it.password == credentials.password) {
-                    preferences.put(KEY_SIGNED_EMAIL, credentials.email)
+                    preferences.apply {
+                        put(KEY_SIGNED_USER_ID, it.id)
+                        put(KEY_SIGNED_USER_NAME, it.name)
+                        put(KEY_SIGNED_USER_EMAIL, it.email)
+                    }
                     Single.just(it)
                 } else {
                     Single.error(IllegalArgumentException("Wrong password"))
