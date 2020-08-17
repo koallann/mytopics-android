@@ -22,7 +22,7 @@
     <string name="label_forgot_password">Forgot Password?</string>
     <string name="label_or">or</string>
     <string name="label_signup">Sign Up</string>
-    <string name="msg_wrong_credentials">Wrong password.</string>
+    <string name="msg_wrong_credentials">Wrong email/password.</string>
     <string name="msg_cannot_signin">Unable to sign in.</string>
 
     <!-- Sign Up -->
@@ -56,6 +56,9 @@
     <string name="msg_topic_added">Your topic was added!</string>
     <string name="msg_cannot_add_topic">Unable to add the topic.</string>
     <string name="msg_no_user_signed">There\'s no user signed.</string>
+
+    <string name="label_close">Close</string>
+    <string name="label_reopen">Reopen</string>
 
     <!-- Profile  -->
 

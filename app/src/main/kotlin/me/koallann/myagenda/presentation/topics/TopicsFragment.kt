@@ -32,7 +32,10 @@ class TopicsFragment : BaseFragment(), TopicsView {
         parent: ViewGroup,
         viewType: Int
     ) -> TopicViewHolder = { layoutInflater, parent, _ ->
-        TopicViewHolder(ItemTopicBinding.inflate(layoutInflater, parent, false))
+        TopicViewHolder(
+            ItemTopicBinding.inflate(layoutInflater, parent, false),
+            presenter
+        )
     }
     private val topicsAdapter: AutoRecyclerAdapter<Topic, TopicViewHolder> by lazy {
         AutoRecyclerAdapter(onCreateViewHolder).apply {
@@ -73,6 +76,14 @@ class TopicsFragment : BaseFragment(), TopicsView {
         topicsAdapter.addAll(topics)
     }
 
+    override fun collapseTopic(topic: Topic) {
+        getViewHolderForTopic(topic)?.collapsed?.set(true)
+    }
+
+    override fun uncollapseTopic(topic: Topic) {
+        getViewHolderForTopic(topic)?.collapsed?.set(false)
+    }
+
     private fun getStatusFilter(): Topic.Status {
         val extra = arguments?.getString(EXTRA_STATUS_FILTER) ?: ""
         return try {
@@ -88,6 +99,14 @@ class TopicsFragment : BaseFragment(), TopicsView {
             layoutManager = LinearLayoutManager(context)
             adapter = topicsAdapter
         }
+    }
+
+    private fun getViewHolderForTopic(topic: Topic): TopicViewHolder? {
+        val index = topicsAdapter.indexOf(topic)
+        if (index == -1) {
+            return null
+        }
+        return binding.topics.findViewHolderForAdapterPosition(index) as TopicViewHolder
     }
 
 }

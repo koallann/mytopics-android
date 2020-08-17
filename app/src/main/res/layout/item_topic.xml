@@ -5,15 +5,26 @@
 
     <data>
 
+        <import type="me.koallann.myagenda.domain.Topic.Status" />
+
+        <variable
+            name="presenter"
+            type="me.koallann.myagenda.presentation.topics.TopicsPresenter" />
+
         <variable
             name="topic"
             type="me.koallann.myagenda.domain.Topic" />
+
+        <variable
+            name="collapsed"
+            type="androidx.databinding.ObservableBoolean" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> presenter.onClickTopic(topic)}"
         android:padding="16dp">
 
         <TextView
@@ -28,7 +39,7 @@
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/briefDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -38,6 +49,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="@string/lorem_ipsum" />
+
+        <TextView
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{topic.details}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/briefDescription"
+            app:visible="@{collapsed}"
+            tools:text="@string/lorem_ipsum" />
+
+        <Button
+            android:id="@+id/action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{topic.status == Status.OPEN ? @string/label_close : @string/label_reopen}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details"
+            app:visible="@{collapsed}"
+            tools:text="@string/label_close" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -62,6 +62,10 @@ class AutoRecyclerAdapter<E, VH : ViewHolder<E>>(
         }
     }
 
+    fun indexOf(item: E): Int {
+        return items.indexOf(item)
+    }
+
     fun size(): Int {
         return items.size
     }

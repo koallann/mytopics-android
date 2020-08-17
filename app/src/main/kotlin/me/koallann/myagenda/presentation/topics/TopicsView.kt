@@ -7,4 +7,8 @@ interface TopicsView : BasicView {
 
     fun addTopics(topics: List<Topic>)
 
+    fun collapseTopic(topic: Topic)
+
+    fun uncollapseTopic(topic: Topic)
+
 }
