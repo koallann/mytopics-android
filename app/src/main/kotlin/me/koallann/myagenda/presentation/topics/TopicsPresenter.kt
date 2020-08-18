@@ -1,6 +1,7 @@
 package me.koallann.myagenda.presentation.topics
 
 import io.reactivex.disposables.CompositeDisposable
+import me.koallann.myagenda.R
 import me.koallann.myagenda.data.topic.TopicRepository
 import me.koallann.myagenda.data.user.UserRepository
 import me.koallann.myagenda.domain.Topic
@@ -61,7 +62,7 @@ class TopicsPresenter(
 
         topicRepository.updateTopic(topic)
             .fromIoToUiThread(schedulerProvider)
-            .setLoadingView(view)
+            .doOnSubscribe { view?.showMessage(R.string.label_closing_topic) }
             .subscribe(
                 { view?.onTopicClosed(topic) },
                 { throwable -> view?.let { errorHandler.showMessageForError(it, throwable) } }
@@ -78,7 +79,7 @@ class TopicsPresenter(
 
         topicRepository.updateTopic(topic)
             .fromIoToUiThread(schedulerProvider)
-            .setLoadingView(view)
+            .doOnSubscribe { view?.showMessage(R.string.label_reopening_topic) }
             .subscribe(
                 { view?.onTopicReopened(topic) },
                 { throwable -> view?.let { errorHandler.showMessageForError(it, throwable) } }

@@ -81,7 +81,7 @@
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:maxLines="6"
-                    android:text="@={topic.briefDescription}"
+                    android:text="@={topic.details}"
                     app:validateEmpty="@{true}" />
 
             </com.google.android.material.textfield.TextInputLayout>

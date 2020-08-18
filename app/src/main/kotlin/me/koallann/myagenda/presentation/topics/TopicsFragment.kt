@@ -90,11 +90,11 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
 
     override fun collapseTopic(topic: Topic) {
-        getViewHolderForTopic(topic)?.collapsed?.set(true)
+        getViewHolderForTopic(topic)?.setCollapsed(true)
     }
 
     override fun uncollapseTopic(topic: Topic) {
-        getViewHolderForTopic(topic)?.collapsed?.set(false)
+        getViewHolderForTopic(topic)?.setCollapsed(false)
     }
 
     override fun onConfirmCloseTopic(topic: Topic) {
