@@ -8,11 +8,11 @@
 
         <variable
             name="presenter"
-            type="me.koallann.myagenda.presentation.signin.SignInPresenter" />
+            type="me.koallann.mytopics.presentation.signin.SignInPresenter" />
 
         <variable
             name="credentials"
-            type="me.koallann.myagenda.domain.Credentials" />
+            type="me.koallann.mytopics.domain.Credentials" />
 
     </data>
 

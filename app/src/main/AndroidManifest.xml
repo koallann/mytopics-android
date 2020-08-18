@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.koallann.myagenda">
+    package="me.koallann.mytopics">
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".presentation.signin.SignInActivity"
+            android:name="me.koallann.mytopics.presentation.signin.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
 
@@ -23,23 +23,23 @@
         </activity>
 
         <activity
-            android:name=".presentation.signup.SignUpActivity"
+            android:name="me.koallann.mytopics.presentation.signup.SignUpActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.forgotpassword.ForgotPasswordActivity"
+            android:name="me.koallann.mytopics.presentation.forgotpassword.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.home.HomeActivity"
+            android:name="me.koallann.mytopics.presentation.home.HomeActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.addtopic.AddTopicActivity"
+            android:name="me.koallann.mytopics.presentation.addtopic.AddTopicActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.profile.ProfileActivity"
+            android:name="me.koallann.mytopics.presentation.profile.ProfileActivity"
             android:screenOrientation="portrait" />
 
     </application>

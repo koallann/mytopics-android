@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My Agenda</string>
+    <string name="app_name">My Topics</string>
 
     <string name="label_loading">Loading…</string>
     <string name="label_ok">OK</string>

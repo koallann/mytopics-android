@@ -7,11 +7,11 @@
 
         <variable
             name="presenter"
-            type="me.koallann.myagenda.presentation.profile.ProfilePresenter" />
+            type="me.koallann.mytopics.presentation.profile.ProfilePresenter" />
 
         <variable
             name="user"
-            type="me.koallann.myagenda.domain.User" />
+            type="me.koallann.mytopics.domain.User" />
 
     </data>
 

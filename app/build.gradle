@@ -7,7 +7,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "me.koallann.myagenda"
+        applicationId "me.koallann.mytopics"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
