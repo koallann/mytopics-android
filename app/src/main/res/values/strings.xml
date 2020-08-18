@@ -34,7 +34,7 @@
 
     <!-- Forgot Password -->
 
-    <string name="label_recover_account">Recover your account</string>
+    <string name="label_recover_account">Recover Account</string>
     <string name="label_send_email">Send Email</string>
     <string name="msg_recovery_email_sent">A recovery email was sent to you.</string>
     <string name="msg_email_doesnt_exists">This email doesn\'t exists.</string>
