@@ -8,11 +8,11 @@
 
         <variable
             name="presenter"
-            type="me.koallann.myagenda.presentation.addtopic.AddTopicPresenter" />
+            type="me.koallann.mytopics.presentation.addtopic.AddTopicPresenter" />
 
         <variable
             name="topic"
-            type="me.koallann.myagenda.domain.Topic" />
+            type="me.koallann.mytopics.domain.Topic" />
 
     </data>
 

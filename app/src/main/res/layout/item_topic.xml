@@ -5,19 +5,19 @@
 
     <data>
 
-        <import type="me.koallann.myagenda.domain.Topic.Status" />
+        <import type="me.koallann.mytopics.domain.Topic.Status" />
 
         <variable
             name="presenter"
-            type="me.koallann.myagenda.presentation.topics.TopicsPresenter" />
+            type="me.koallann.mytopics.presentation.topics.TopicsPresenter" />
 
         <variable
             name="topic"
-            type="me.koallann.myagenda.domain.Topic" />
+            type="me.koallann.mytopics.domain.Topic" />
 
         <variable
             name="signedUser"
-            type="me.koallann.myagenda.domain.User" />
+            type="me.koallann.mytopics.domain.User" />
 
         <variable
             name="collapsed"
