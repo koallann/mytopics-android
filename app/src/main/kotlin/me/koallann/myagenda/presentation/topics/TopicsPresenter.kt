@@ -21,7 +21,7 @@ class TopicsPresenter(
 ) : Presenter<TopicsView>(TopicsView::class.java) {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
-    private var lastSelectedTopic: Topic? = null
+    private var previousClickedTopic: Topic? = null
 
     override fun stop() {
         super.stop()
@@ -44,13 +44,13 @@ class TopicsPresenter(
     }
 
     fun onClickTopic(topic: Topic) {
-        if (topic == lastSelectedTopic) {
+        if (topic == previousClickedTopic) {
             view?.uncollapseTopic(topic)
-            lastSelectedTopic = null
+            previousClickedTopic = null
             return
         }
-        lastSelectedTopic?.let { view?.uncollapseTopic(it) }
-        lastSelectedTopic = topic
+        previousClickedTopic?.let { view?.uncollapseTopic(it) }
+        previousClickedTopic = topic
         view?.collapseTopic(topic)
     }
 

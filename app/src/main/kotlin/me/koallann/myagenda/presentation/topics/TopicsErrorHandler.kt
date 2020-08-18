@@ -7,7 +7,7 @@ import me.koallann.support.mvp.BasicView
 class TopicsErrorHandler : ErrorHandler {
 
     override fun showMessageForError(view: BasicView, error: Throwable) {
-        view.showMessage(R.string.msg_cannot_load_topics)
+        view.showMessage(R.string.msg_topic_error)
     }
 
 }
