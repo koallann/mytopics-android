@@ -47,7 +47,7 @@ class SignUpPresenterTest {
 
         presenter.onClickSignUp(user)
 
-        verify(userRepository, never()).createUser(user)
+        verify(userRepository, never()).signUpUser(user)
         verify(view, never()).navigateToSignIn()
     }
 
@@ -56,11 +56,11 @@ class SignUpPresenterTest {
         val user = User(name = "John Doe", email = "john.doe@acme.com", secret = User.Secret("123456"))
 
         `when`(view.validateUserFields()).thenReturn(true)
-        `when`(userRepository.createUser(user)).thenReturn(Single.just(User()))
+        `when`(userRepository.signUpUser(user)).thenReturn(Single.just(User()))
 
         presenter.onClickSignUp(user)
 
-        verify(userRepository, only()).createUser(user)
+        verify(userRepository, only()).signUpUser(user)
     }
 
     @Test
@@ -69,7 +69,7 @@ class SignUpPresenterTest {
         val error = SQLiteConstraintException("This email is already in use")
 
         `when`(view.validateUserFields()).thenReturn(true)
-        `when`(userRepository.createUser(user)).thenReturn(Single.error(error))
+        `when`(userRepository.signUpUser(user)).thenReturn(Single.error(error))
 
         presenter.onClickSignUp(user)
 
@@ -83,7 +83,7 @@ class SignUpPresenterTest {
         val error = Throwable("Unknown error")
 
         `when`(view.validateUserFields()).thenReturn(true)
-        `when`(userRepository.createUser(user)).thenReturn(Single.error(error))
+        `when`(userRepository.signUpUser(user)).thenReturn(Single.error(error))
 
         presenter.onClickSignUp(user)
 
@@ -96,7 +96,7 @@ class SignUpPresenterTest {
         val user = User(name = "John Doe", email = "john.doe@acme.com", secret = User.Secret("123456"))
 
         `when`(view.validateUserFields()).thenReturn(true)
-        `when`(userRepository.createUser(user)).thenReturn(Single.just(User(name = user.name, email = user.email)))
+        `when`(userRepository.signUpUser(user)).thenReturn(Single.just(User(name = user.name, email = user.email)))
 
         presenter.onClickSignUp(user)
 

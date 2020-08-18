@@ -20,7 +20,7 @@ class UserRepositoryImpl(private val localDataSource: UserLocalDataSource) : Use
         return localDataSource.signInUser(credentials)
     }
 
-    override fun createUser(user: User): Single<User> {
+    override fun signUpUser(user: User): Single<User> {
         return localDataSource.createUser(user)
     }
 

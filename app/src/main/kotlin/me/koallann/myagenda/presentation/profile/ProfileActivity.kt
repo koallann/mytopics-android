@@ -1,5 +1,7 @@
 package me.koallann.myagenda.presentation.profile
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -14,6 +16,10 @@ import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 
 class ProfileActivity : BaseActivity(), ProfileView {
+
+    companion object {
+        fun createIntent(context: Context) = Intent(context, ProfileActivity::class.java)
+    }
 
     private val binding: ActivityProfileBinding by lazy {
         ActivityProfileBinding.inflate(layoutInflater)
@@ -71,6 +77,7 @@ class ProfileActivity : BaseActivity(), ProfileView {
     }
 
     private fun setupLayout() {
+        supportActionBar?.setTitle(R.string.label_profile)
         binding.also {
             it.presenter = presenter
         }

@@ -5,40 +5,133 @@
 
     <data>
 
+        <import type="me.koallann.myagenda.domain.Topic.Status" />
+
+        <variable
+            name="presenter"
+            type="me.koallann.myagenda.presentation.topics.TopicsPresenter" />
+
         <variable
             name="topic"
             type="me.koallann.myagenda.domain.Topic" />
 
+        <variable
+            name="signedUser"
+            type="me.koallann.myagenda.domain.User" />
+
+        <variable
+            name="collapsed"
+            type="androidx.databinding.ObservableBoolean" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:cardElevation="4dp">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{topic.title}"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Title" />
+            android:onClick="@{() -> presenter.onClickTopic(topic)}"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="@{topic.briefDescription}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="@string/lorem_ipsum" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{topic.title}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Title" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/briefDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{topic.briefDescription}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="@string/lorem_ipsum" />
+
+            <TextView
+                android:id="@+id/detailsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:text="@string/label_details"
+                android:textColor="@android:color/black"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/briefDescription"
+                app:visible="@{collapsed}"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{topic.details}"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailsLabel"
+                app:visible="@{collapsed}"
+                tools:text="@string/lorem_ipsum"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/authorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{topic.author.name}"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details"
+                app:visible="@{collapsed}"
+                tools:text="John Doe"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/authorEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="email"
+                android:text="@{topic.author.email}"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/authorName"
+                app:visible="@{collapsed}"
+                tools:text="john.doe@acme.com"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/action"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:onClick="@{() -> topic.status == Status.OPEN ? presenter.onClickCloseTopic(topic) : presenter.onClickReopenTopic(topic)}"
+                android:text="@{topic.status == Status.OPEN ? @string/label_close : @string/label_reopen}"
+                android:textColor="@{topic.status == Status.OPEN ? @color/persian_red : @color/bondi_blue}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/authorEmail"
+                app:visible="@{topic.author.id == signedUser.id &amp;&amp; collapsed}"
+                tools:text="@string/label_close" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

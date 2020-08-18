@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayoutMediator
@@ -11,6 +13,7 @@ import me.koallann.myagenda.R
 import me.koallann.myagenda.databinding.ActivityHomeBinding
 import me.koallann.myagenda.domain.Topic
 import me.koallann.myagenda.presentation.addtopic.AddTopicActivity
+import me.koallann.myagenda.presentation.profile.ProfileActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -40,6 +43,34 @@ class HomeActivity : AppCompatActivity() {
         setupLayout()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.home, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.profile -> {
+                startActivity(ProfileActivity.createIntent(this))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    /**
+     * Prevent memory leak in Android Q.
+     * See: https://issuetracker.google.com/issues/139738913
+    */
+    override fun onBackPressed() {
+        finishAfterTransition()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AddTopicActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -49,7 +80,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
-        binding.pager.adapter = pagerAdapter
+        supportActionBar?.setTitle(R.string.label_topics)
+        binding.pager.apply {
+            adapter = pagerAdapter
+            offscreenPageLimit = 2
+        }
         binding.addTopic.setOnClickListener {
             startActivityForResult(
                 AddTopicActivity.createIntent(this),

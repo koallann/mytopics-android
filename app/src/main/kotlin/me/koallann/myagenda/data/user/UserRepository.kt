@@ -13,7 +13,7 @@ interface UserRepository {
 
     fun signInUser(credentials: Credentials): Single<User>
 
-    fun createUser(user: User): Single<User>
+    fun signUpUser(user: User): Single<User>
 
     fun sendRecoveryEmail(toEmail: String): Completable
 

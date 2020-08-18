@@ -75,6 +75,7 @@ class AddTopicActivity : BaseActivity(), AddTopicView {
     }
 
     private fun setupLayout() {
+        supportActionBar?.setTitle(R.string.label_add_topic)
         binding.also {
             it.presenter = presenter
             it.topic = Topic()

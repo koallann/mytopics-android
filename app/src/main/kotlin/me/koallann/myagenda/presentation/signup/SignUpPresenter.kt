@@ -27,7 +27,7 @@ class SignUpPresenter(
         if (view?.validateUserFields() != true) {
             return
         }
-        userRepository.createUser(user)
+        userRepository.signUpUser(user)
             .fromIoToUiThread(schedulerProvider)
             .setLoadingView(view)
             .subscribe(
