@@ -1,6 +1,7 @@
 package me.koallann.myagenda.presentation.profile
 
 import io.reactivex.disposables.CompositeDisposable
+import me.koallann.myagenda.R
 import me.koallann.myagenda.data.user.UserRepository
 import me.koallann.support.extensions.addTo
 import me.koallann.support.extensions.fromIoToUiThread
@@ -32,6 +33,7 @@ class ProfilePresenter(
         userRepository.signOutUser()
             .fromIoToUiThread(schedulerProvider)
             .setLoadingView(view)
+            .doOnSubscribe { view?.showMessage(R.string.msg_exiting) }
             .subscribe { view?.navigateToLogin() }
             .addTo(disposables)
     }

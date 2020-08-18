@@ -62,6 +62,10 @@ class AutoRecyclerAdapter<E, VH : ViewHolder<E>>(
         }
     }
 
+    fun contains(item: E): Boolean {
+        return items.contains(item)
+    }
+
     fun indexOf(item: E): Int {
         return items.indexOf(item)
     }

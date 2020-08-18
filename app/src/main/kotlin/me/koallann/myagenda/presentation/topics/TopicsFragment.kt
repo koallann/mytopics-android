@@ -55,6 +55,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
     private val presenter: TopicsPresenter by lazy {
         TopicsPresenter(
+            getStatusFilter(),
             TopicRepositoryImpl(TopicDaoClient(requireContext())),
             UserRepositoryImpl(UserDaoClient(requireContext())),
             StandardSchedulerProvider(),
@@ -63,9 +64,11 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
 
     val onNewTopic: (Topic) -> Unit = { topic ->
-        topicsAdapter.add(topic)
-        binding.topics.also {
-            it.scrollToPosition(topicsAdapter.size() - 1)
+        if (!topicsAdapter.contains(topic)) {
+            topicsAdapter.add(topic)
+            binding.topics.also {
+                it.scrollToPosition(topicsAdapter.size() - 1)
+            }
         }
     }
     private var onUpdateTopic: ((Topic) -> Unit)? = null
@@ -77,7 +80,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
         presenter.attachView(this)
         presenter.onLoadUser()
         setupLayout()
-        presenter.onLoadTopics(getStatusFilter())
+        presenter.onLoadTopics()
     }
 
     override fun onDestroy() {
