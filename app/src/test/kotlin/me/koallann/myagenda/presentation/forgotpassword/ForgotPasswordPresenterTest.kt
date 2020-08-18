@@ -1,10 +1,8 @@
 package me.koallann.myagenda.presentation.forgotpassword
 
 import io.reactivex.Completable
-import io.reactivex.Single
 import me.koallann.myagenda.R
 import me.koallann.myagenda.data.user.UserRepository
-import me.koallann.myagenda.domain.Credentials
 import me.koallann.support.handlers.ErrorHandler
 import me.koallann.support.rxschedulers.ImmediateSchedulerProvider
 import org.junit.After
@@ -74,7 +72,7 @@ class ForgotPasswordPresenterTest {
 
         presenter.onClickSendRecoveryEmail(toEmail)
 
-        verify(view).showMessage(R.string.msg_email_doesnt_exists)
+        verify(view).showMessage(R.string.msg_email_not_found)
     }
 
     @Test

@@ -64,6 +64,7 @@ class SignUpActivity : BaseActivity(), SignUpView {
     }
 
     private fun setupLayout() {
+        supportActionBar?.setTitle(R.string.label_signup)
         binding.also {
             it.presenter = presenter
             it.user = User(secret = User.Secret())

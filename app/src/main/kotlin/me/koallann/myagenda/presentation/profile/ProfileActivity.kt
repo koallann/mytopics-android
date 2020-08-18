@@ -77,6 +77,7 @@ class ProfileActivity : BaseActivity(), ProfileView {
     }
 
     private fun setupLayout() {
+        supportActionBar?.setTitle(R.string.label_profile)
         binding.also {
             it.presenter = presenter
         }

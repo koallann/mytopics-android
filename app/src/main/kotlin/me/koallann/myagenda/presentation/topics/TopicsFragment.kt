@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.ObservableBoolean
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.koallann.myagenda.R
 import me.koallann.myagenda.data.topic.TopicRepositoryImpl
@@ -53,6 +54,9 @@ class TopicsFragment : BaseFragment(), TopicsView {
             setHasStableIds(true)
         }
     }
+    private val isListEmpty: ObservableBoolean by lazy {
+        ObservableBoolean(false)
+    }
     private val presenter: TopicsPresenter by lazy {
         TopicsPresenter(
             getStatusFilter(),
@@ -66,6 +70,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     val onNewTopic: (Topic) -> Unit = { topic ->
         if (!topicsAdapter.contains(topic)) {
             topicsAdapter.add(topic)
+            checkListEmpty()
             binding.topics.also {
                 it.scrollToPosition(topicsAdapter.size() - 1)
             }
@@ -95,6 +100,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
 
     override fun addTopics(topics: List<Topic>) {
         topicsAdapter.addAll(topics)
+        checkListEmpty()
     }
 
     override fun collapseTopic(topic: Topic) {
@@ -120,6 +126,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     override fun onTopicClosed(topic: Topic) {
         onUpdateTopic?.invoke(topic)
         topicsAdapter.remove(topic)
+        checkListEmpty()
         showMessage(R.string.msg_topic_closed)
     }
 
@@ -138,6 +145,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
     override fun onTopicReopened(topic: Topic) {
         onUpdateTopic?.invoke(topic)
         topicsAdapter.remove(topic)
+        checkListEmpty()
         showMessage(R.string.msg_topic_reopened)
     }
 
@@ -151,10 +159,11 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
 
     private fun setupLayout() {
-        binding.topics.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            adapter = topicsAdapter
+        binding.also {
+            it.isEmpty = isListEmpty
+            it.topics.setHasFixedSize(true)
+            it.topics.layoutManager = LinearLayoutManager(context)
+            it.topics.adapter = topicsAdapter
         }
     }
 
@@ -164,6 +173,10 @@ class TopicsFragment : BaseFragment(), TopicsView {
             return null
         }
         return binding.topics.findViewHolderForAdapterPosition(index) as TopicViewHolder
+    }
+
+    private fun checkListEmpty() {
+        isListEmpty.set(topicsAdapter.isEmpty())
     }
 
 }

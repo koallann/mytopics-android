@@ -64,6 +64,7 @@ class ForgotPasswordActivity : BaseActivity(), ForgotPasswordView {
     }
 
     private fun setupLayout() {
+        supportActionBar?.setTitle(R.string.label_recover_account)
         binding.also {
             it.presenter = presenter
             it.toEmail = ""

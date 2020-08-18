@@ -24,10 +24,19 @@ abstract class BaseActivity : AppCompatActivity(), BasicView {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.base)
 
+        supportActionBar?.let {
+            it.setDisplayShowHomeEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
         root.addView(content, CoordinatorLayout.LayoutParams(
             CoordinatorLayout.LayoutParams.MATCH_PARENT,
             CoordinatorLayout.LayoutParams.MATCH_PARENT
         ))
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun setContentView(view: View?) {

@@ -62,6 +62,10 @@ class AutoRecyclerAdapter<E, VH : ViewHolder<E>>(
         }
     }
 
+    fun isEmpty(): Boolean {
+        return items.isEmpty()
+    }
+
     fun contains(item: E): Boolean {
         return items.contains(item)
     }

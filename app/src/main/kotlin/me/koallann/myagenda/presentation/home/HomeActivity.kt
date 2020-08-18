@@ -43,6 +43,11 @@ class HomeActivity : AppCompatActivity() {
         setupLayout()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home, menu)
         return true
@@ -75,6 +80,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
+        supportActionBar?.setTitle(R.string.label_topics)
         binding.pager.apply {
             adapter = pagerAdapter
             offscreenPageLimit = 2

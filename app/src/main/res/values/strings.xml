@@ -37,13 +37,15 @@
     <string name="label_recover_account">Recover Account</string>
     <string name="label_send_email">Send Email</string>
     <string name="msg_recovery_email_sent">A recovery email was sent to you.</string>
-    <string name="msg_email_doesnt_exists">This email doesn\'t exists.</string>
+    <string name="msg_email_not_found">Email not found.</string>
     <string name="msg_cannot_recover_email">Unable to send a recovery email.</string>
 
     <!-- Topics -->
 
+    <string name="label_topics">Topics</string>
     <string name="label_open_topics">Open</string>
     <string name="label_closed_topics">Closed</string>
+    <string name="label_no_topics">No topics.</string>
     <string name="msg_cannot_load_topics">Unable to load the topics.</string>
 
     <string name="label_add_topic">Add Topic</string>
@@ -67,6 +69,7 @@
     <!-- Profile  -->
 
     <string name="label_profile_menu">My Profile</string>
+    <string name="label_profile">Profile</string>
     <string name="label_signout">Sign Out</string>
     <string name="msg_signout">Are you sure you want to sign out?</string>
     <string name="msg_exiting">Exiting…</string>
