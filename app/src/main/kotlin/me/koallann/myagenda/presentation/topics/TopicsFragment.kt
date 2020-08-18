@@ -24,8 +24,12 @@ class TopicsFragment : BaseFragment(), TopicsView {
     companion object {
         private const val EXTRA_STATUS_FILTER = "status_filter"
 
-        fun newInstance(filter: Topic.Status) = TopicsFragment().apply {
+        fun newInstance(
+            filter: Topic.Status,
+            onUpdateTopic: ((Topic) -> Unit)? = null
+        ) = TopicsFragment().apply {
             arguments = Bundle().apply { putString(EXTRA_STATUS_FILTER, filter.toString()) }
+            this.onUpdateTopic = onUpdateTopic
         }
     }
 
@@ -64,6 +68,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
             it.scrollToPosition(topicsAdapter.size() - 1)
         }
     }
+    private var onUpdateTopic: ((Topic) -> Unit)? = null
 
     override fun getContentView(): View = binding.root
 
@@ -110,7 +115,9 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
 
     override fun onTopicClosed(topic: Topic) {
-        TODO("Not yet implemented")
+        onUpdateTopic?.invoke(topic)
+        topicsAdapter.remove(topic)
+        showMessage(R.string.msg_topic_closed)
     }
 
     override fun onConfirmReopenTopic(topic: Topic) {
@@ -126,7 +133,9 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
 
     override fun onTopicReopened(topic: Topic) {
-        TODO("Not yet implemented")
+        onUpdateTopic?.invoke(topic)
+        topicsAdapter.remove(topic)
+        showMessage(R.string.msg_topic_reopened)
     }
 
     private fun getStatusFilter(): Topic.Status {

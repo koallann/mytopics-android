@@ -60,7 +60,9 @@
     <string name="label_reopen">Reopen</string>
     <string name="label_reopening_topic">Reopening topic…</string>
     <string name="msg_close_topic">Are you sure you want to close this topic?</string>
+    <string name="msg_topic_closed">The topic was closed</string>
     <string name="msg_reopen_topic">Are you sure you want to reopen this topic?</string>
+    <string name="msg_topic_reopened">The topic was reopened</string>
 
     <!-- Profile  -->
 

@@ -9,7 +9,14 @@ import me.koallann.myagenda.presentation.topics.TopicsFragment
 class HomePagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
     private val openTopicsFragment: TopicsFragment by lazy {
-        TopicsFragment.newInstance(Topic.Status.OPEN)
+        TopicsFragment.newInstance(Topic.Status.OPEN) {
+            closedTopicsFragment.onNewTopic(it)
+        }
+    }
+    private val closedTopicsFragment: TopicsFragment by lazy {
+        TopicsFragment.newInstance(Topic.Status.CLOSED) {
+            openTopicsFragment.onNewTopic(it)
+        }
     }
     val onNewTopic: (Topic) -> Unit = {
         if (it.status == Topic.Status.OPEN) {
@@ -22,7 +29,7 @@ class HomePagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activi
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> openTopicsFragment
-            1 -> TopicsFragment.newInstance(Topic.Status.CLOSED)
+            1 -> closedTopicsFragment
             else -> Fragment()
         }
     }
