@@ -14,8 +14,8 @@ import me.koallann.mytopics.databinding.FragmentTopicsBinding
 import me.koallann.mytopics.databinding.ItemTopicBinding
 import me.koallann.mytopics.domain.Topic
 import me.koallann.mytopics.domain.User
-import me.koallann.mytopics.local.topic.TopicDaoClient
-import me.koallann.mytopics.local.user.UserDaoClient
+import me.koallann.mytopics.data_db.topic.TopicDaoClient
+import me.koallann.mytopics.data_db.user.UserDaoClient
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseFragment
 import me.koallann.support.ui.list.AutoRecyclerAdapter

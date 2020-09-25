@@ -1,4 +1,4 @@
-package me.koallann.mytopics.local.user
+package me.koallann.mytopics.data_db.user
 
 import androidx.room.Entity
 import androidx.room.Index

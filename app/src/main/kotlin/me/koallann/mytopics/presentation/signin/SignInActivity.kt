@@ -9,7 +9,7 @@ import me.koallann.mytopics.R
 import me.koallann.mytopics.data.user.UserRepositoryImpl
 import me.koallann.mytopics.databinding.ActivitySigninBinding
 import me.koallann.mytopics.domain.Credentials
-import me.koallann.mytopics.local.user.UserDaoClient
+import me.koallann.mytopics.data_db.user.UserDaoClient
 import me.koallann.mytopics.presentation.forgotpassword.ForgotPasswordActivity
 import me.koallann.mytopics.presentation.home.HomeActivity
 import me.koallann.mytopics.presentation.signup.SignUpActivity

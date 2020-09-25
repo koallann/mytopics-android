@@ -1,4 +1,4 @@
-package me.koallann.mytopics.local.topic
+package me.koallann.mytopics.data_db.topic
 
 import androidx.room.Dao
 import androidx.room.Insert

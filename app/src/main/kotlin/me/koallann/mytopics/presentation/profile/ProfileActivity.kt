@@ -9,7 +9,7 @@ import me.koallann.mytopics.R
 import me.koallann.mytopics.data.user.UserRepositoryImpl
 import me.koallann.mytopics.databinding.ActivityProfileBinding
 import me.koallann.mytopics.domain.User
-import me.koallann.mytopics.local.user.UserDaoClient
+import me.koallann.mytopics.data_db.user.UserDaoClient
 import me.koallann.mytopics.presentation.signin.SignInActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity

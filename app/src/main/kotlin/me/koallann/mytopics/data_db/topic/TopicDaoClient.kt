@@ -1,11 +1,11 @@
-package me.koallann.mytopics.local.topic
+package me.koallann.mytopics.data_db.topic
 
 import android.content.Context
 import io.reactivex.Completable
 import io.reactivex.Single
 import me.koallann.mytopics.data.topic.TopicLocalDataSource
 import me.koallann.mytopics.domain.Topic
-import me.koallann.mytopics.local.AppDatabase
+import me.koallann.mytopics.data_db.AppDatabase
 import java.util.concurrent.TimeUnit
 
 class TopicDaoClient(context: Context) : TopicLocalDataSource {

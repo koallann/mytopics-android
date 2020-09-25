@@ -12,8 +12,8 @@ import me.koallann.mytopics.data.topic.TopicRepositoryImpl
 import me.koallann.mytopics.data.user.UserRepositoryImpl
 import me.koallann.mytopics.databinding.ActivityAddTopicBinding
 import me.koallann.mytopics.domain.Topic
-import me.koallann.mytopics.local.topic.TopicDaoClient
-import me.koallann.mytopics.local.user.UserDaoClient
+import me.koallann.mytopics.data_db.topic.TopicDaoClient
+import me.koallann.mytopics.data_db.user.UserDaoClient
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
 import me.koallann.support.ui.BaseActivity
 

@@ -1,4 +1,4 @@
-package me.koallann.mytopics.local.user
+package me.koallann.mytopics.data_db.user
 
 import android.content.Context
 import androidx.room.EmptyResultSetException
@@ -7,7 +7,7 @@ import io.reactivex.Single
 import me.koallann.mytopics.data.user.UserLocalDataSource
 import me.koallann.mytopics.domain.Credentials
 import me.koallann.mytopics.domain.User
-import me.koallann.mytopics.local.AppDatabase
+import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.support.content.SharedPreferences
 import java.util.concurrent.TimeUnit
 
