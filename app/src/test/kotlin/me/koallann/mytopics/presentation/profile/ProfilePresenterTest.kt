@@ -29,7 +29,6 @@ class ProfilePresenterTest {
 
     @After
     fun finish() {
-        presenter.stop()
         presenter.detachView()
     }
 

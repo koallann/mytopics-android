@@ -18,9 +18,9 @@ class SignUpPresenter(
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    override fun stop() {
-        super.stop()
+    override fun detachView() {
         disposables.clear()
+        super.detachView()
     }
 
     fun onClickSignUp(user: User) {

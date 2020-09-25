@@ -24,9 +24,9 @@ class TopicsPresenter(
     private val disposables: CompositeDisposable = CompositeDisposable()
     private var previousClickedTopic: Topic? = null
 
-    override fun stop() {
-        super.stop()
+    override fun detachView() {
         disposables.clear()
+        super.detachView()
     }
 
     fun onLoadUser() {

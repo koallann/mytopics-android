@@ -48,7 +48,6 @@ class  SignInActivity : BaseActivity(), SignInView {
     }
 
     override fun onDestroy() {
-        presenter.stop()
         presenter.detachView()
         super.onDestroy()
     }

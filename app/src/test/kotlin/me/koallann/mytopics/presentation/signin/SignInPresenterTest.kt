@@ -36,7 +36,6 @@ class SignInPresenterTest {
 
     @After
     fun finish() {
-        presenter.stop()
         presenter.detachView()
     }
 

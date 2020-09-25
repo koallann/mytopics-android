@@ -17,9 +17,9 @@ class ForgotPasswordPresenter(
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    override fun stop() {
-        super.stop()
+    override fun detachView() {
         disposables.clear()
+        super.detachView()
     }
 
     fun onClickSendRecoveryEmail(toEmail: String) {

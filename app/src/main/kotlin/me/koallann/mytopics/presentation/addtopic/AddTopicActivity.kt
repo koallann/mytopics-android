@@ -50,7 +50,6 @@ class AddTopicActivity : BaseActivity(), AddTopicView {
     }
 
     override fun onDestroy() {
-        presenter.stop()
         presenter.detachView()
         super.onDestroy()
     }

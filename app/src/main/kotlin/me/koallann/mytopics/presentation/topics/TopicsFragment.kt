@@ -50,9 +50,7 @@ class TopicsFragment : BaseFragment(), TopicsView {
         )
     }
     private val topicsAdapter: AutoRecyclerAdapter<Topic, TopicViewHolder> by lazy {
-        AutoRecyclerAdapter(onCreateViewHolder).apply {
-            setHasStableIds(true)
-        }
+        AutoRecyclerAdapter(onCreateViewHolder)
     }
     private val isListEmpty: ObservableBoolean by lazy {
         ObservableBoolean(false)
@@ -89,7 +87,6 @@ class TopicsFragment : BaseFragment(), TopicsView {
     }
 
     override fun onDestroy() {
-        presenter.stop()
         presenter.detachView()
         super.onDestroy()
     }

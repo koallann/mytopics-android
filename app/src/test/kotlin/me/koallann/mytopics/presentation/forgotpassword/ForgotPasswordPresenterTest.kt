@@ -33,7 +33,6 @@ class ForgotPasswordPresenterTest {
 
     @After
     fun finish() {
-        presenter.stop()
         presenter.detachView()
     }
 

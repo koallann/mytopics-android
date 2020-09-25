@@ -45,7 +45,6 @@ class ClosedTopicsPresenterTest {
 
     @After
     fun finish() {
-        presenter.stop()
         presenter.detachView()
     }
 

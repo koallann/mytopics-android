@@ -35,7 +35,6 @@ class SignUpPresenterTest {
 
     @After
     fun finish() {
-        presenter.stop()
         presenter.detachView()
     }
 

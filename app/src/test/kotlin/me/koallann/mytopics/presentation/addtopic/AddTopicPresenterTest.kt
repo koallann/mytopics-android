@@ -39,7 +39,6 @@ class AddTopicPresenterTest {
 
     @After
     fun finish() {
-        presenter.stop()
         presenter.detachView()
     }
 

@@ -40,7 +40,6 @@ class ProfileActivity : BaseActivity(), ProfileView {
     }
 
     override fun onDestroy() {
-        presenter.stop()
         presenter.detachView()
         super.onDestroy()
     }

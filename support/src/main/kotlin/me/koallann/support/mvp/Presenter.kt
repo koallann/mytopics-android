@@ -14,16 +14,12 @@ abstract class Presenter<View>(viewClass: Class<View>) {
         }
     }
 
-    fun attachView(view: View) {
+    open fun attachView(view: View) {
         detachView()
         viewReference = WeakReference(view)
     }
 
-    open fun start() {}
-
-    open fun stop() {}
-
-    fun detachView() {
+    open fun detachView() {
         viewReference?.clear()
     }
 

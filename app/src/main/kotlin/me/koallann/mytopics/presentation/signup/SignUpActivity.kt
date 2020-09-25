@@ -43,7 +43,6 @@ class SignUpActivity : BaseActivity(), SignUpView {
     }
 
     override fun onDestroy() {
-        presenter.stop()
         presenter.detachView()
         super.onDestroy()
     }

@@ -43,7 +43,6 @@ class ForgotPasswordActivity : BaseActivity(), ForgotPasswordView {
     }
 
     override fun onDestroy() {
-        presenter.stop()
         presenter.detachView()
         super.onDestroy()
     }

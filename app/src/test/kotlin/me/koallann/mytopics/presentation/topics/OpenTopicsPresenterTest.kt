@@ -45,7 +45,6 @@ class OpenTopicsPresenterTest {
 
     @After
     fun finish() {
-        presenter.stop()
         presenter.detachView()
     }
 
