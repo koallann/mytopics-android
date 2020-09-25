@@ -14,7 +14,7 @@ import me.koallann.mytopics.presentation.forgotpassword.ForgotPasswordActivity
 import me.koallann.mytopics.presentation.home.HomeActivity
 import me.koallann.mytopics.presentation.signup.SignUpActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
-import me.koallann.support.ui.BaseActivity
+import me.koallann.mytopics.presentation.base.BaseActivity
 
 class  SignInActivity : BaseActivity(), SignInView {
 

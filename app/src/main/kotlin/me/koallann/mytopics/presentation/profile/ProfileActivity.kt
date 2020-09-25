@@ -12,7 +12,7 @@ import me.koallann.mytopics.domain.User
 import me.koallann.mytopics.data_db.user.UserDaoClient
 import me.koallann.mytopics.presentation.signin.SignInActivity
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
-import me.koallann.support.ui.BaseActivity
+import me.koallann.mytopics.presentation.base.BaseActivity
 
 class ProfileActivity : BaseActivity(), ProfileView {
 

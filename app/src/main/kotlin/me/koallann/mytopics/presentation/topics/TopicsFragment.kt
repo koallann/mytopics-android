@@ -17,7 +17,7 @@ import me.koallann.mytopics.domain.User
 import me.koallann.mytopics.data_db.topic.TopicDaoClient
 import me.koallann.mytopics.data_db.user.UserDaoClient
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
-import me.koallann.support.ui.BaseFragment
+import me.koallann.mytopics.presentation.base.BaseFragment
 import me.koallann.support.ui.list.AutoRecyclerAdapter
 
 class TopicsFragment : BaseFragment(), TopicsView {

@@ -25,11 +25,20 @@ class AutoRecyclerAdapter<E, VH : ViewHolder<E>>(
         holder.bind(items[position])
     }
 
-    override fun getItemId(position: Int): Long {
-        return if (items.size >= position)
-            items[position].hashCode().toLong()
-        else
-            super.getItemId(position)
+    fun size(): Int {
+        return items.size
+    }
+
+    fun isEmpty(): Boolean {
+        return items.isEmpty()
+    }
+
+    fun indexOf(item: E): Int {
+        return items.indexOf(item)
+    }
+
+    fun contains(item: E): Boolean {
+        return items.contains(item)
     }
 
     fun add(item: E) {
@@ -60,22 +69,6 @@ class AutoRecyclerAdapter<E, VH : ViewHolder<E>>(
             items.clear()
             notifyDataSetChanged()
         }
-    }
-
-    fun isEmpty(): Boolean {
-        return items.isEmpty()
-    }
-
-    fun contains(item: E): Boolean {
-        return items.contains(item)
-    }
-
-    fun indexOf(item: E): Int {
-        return items.indexOf(item)
-    }
-
-    fun size(): Int {
-        return items.size
     }
 
 }

@@ -1,4 +1,4 @@
-package me.koallann.support.ui
+package me.koallann.mytopics.presentation.base
 
 import android.os.Bundle
 import android.view.View
