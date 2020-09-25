@@ -29,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
             return Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "myagenda.db"
+                "mytopics.db"
             )
                 .build()
         }
