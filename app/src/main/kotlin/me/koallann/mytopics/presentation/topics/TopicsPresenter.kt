@@ -1,5 +1,6 @@
 package me.koallann.mytopics.presentation.topics
 
+import androidx.annotation.StringRes
 import io.reactivex.disposables.CompositeDisposable
 import me.koallann.mytopics.R
 import me.koallann.mytopics.data.topic.TopicRepository
@@ -64,20 +65,9 @@ class TopicsPresenter(
     }
 
     fun closeTopic(topic: Topic) {
-        topicsBeingUpdated.add(topic)
-
-        topicRepository.updateTopic(topic.copy(status = Topic.Status.CLOSED))
-            .fromIoToUiThread(schedulerProvider)
-            .doOnSubscribe { view?.showMessage(R.string.label_closing_topic) }
-            .doFinally { removeTopicFromUpdating(topic) }
-            .subscribe(
-                {
-                    topic.status = Topic.Status.CLOSED
-                    view?.onTopicClosed(topic)
-                },
-                { throwable -> view?.let { errorHandler.showMessageForError(it, throwable) } }
-            )
-            .addTo(disposables)
+        updateTopic(topic, Topic.Status.CLOSED, R.string.label_closing_topic) {
+            view?.onTopicClosed(topic)
+        }
     }
 
     fun onClickReopenTopic(topic: Topic) {
@@ -90,16 +80,30 @@ class TopicsPresenter(
     }
 
     fun reopenTopic(topic: Topic) {
-        topicsBeingUpdated.add(topic)
+        updateTopic(topic, Topic.Status.OPEN, R.string.label_reopening_topic) {
+            view?.onTopicReopened(topic)
+        }
+    }
 
-        topicRepository.updateTopic(topic.copy(status = Topic.Status.OPEN))
+    private fun updateTopic(
+        topic: Topic,
+        toStatus: Topic.Status,
+        @StringRes loadingMessageRes: Int,
+        onUpdated: () -> Unit
+    ) {
+        topicRepository.updateTopic(topic.copy(status = toStatus))
             .fromIoToUiThread(schedulerProvider)
-            .doOnSubscribe { view?.showMessage(R.string.label_reopening_topic) }
-            .doFinally { removeTopicFromUpdating(topic) }
+            .doOnSubscribe {
+                addTopicToUpdating(topic)
+                view?.showMessage(loadingMessageRes)
+            }
+            .doFinally {
+                removeTopicFromUpdating(topic)
+            }
             .subscribe(
                 {
-                    topic.status = Topic.Status.OPEN
-                    view?.onTopicReopened(topic)
+                    topic.status = toStatus
+                    onUpdated()
                 },
                 { throwable -> view?.let { errorHandler.showMessageForError(it, throwable) } }
             )
@@ -112,6 +116,10 @@ class TopicsPresenter(
 
     private fun isTopicUpdating(topic: Topic): Boolean {
         return topicsBeingUpdated.any { it.id == topic.id }
+    }
+
+    private fun addTopicToUpdating(topic: Topic) {
+        topicsBeingUpdated.add(topic)
     }
 
     private fun removeTopicFromUpdating(topic: Topic) = synchronized(this) {
