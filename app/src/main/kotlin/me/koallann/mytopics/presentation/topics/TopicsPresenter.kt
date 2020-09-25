@@ -110,25 +110,18 @@ class TopicsPresenter(
             .addTo(disposables)
     }
 
-    // naive handling of topics being updated
-
-    private var topicsBeingUpdated: MutableList<Topic> = arrayListOf()
+    private var topicsBeingUpdated: MutableMap<Int, Boolean> = hashMapOf()
 
     private fun isTopicUpdating(topic: Topic): Boolean {
-        return topicsBeingUpdated.any { it.id == topic.id }
+        return topicsBeingUpdated.contains(topic.id)
     }
 
     private fun addTopicToUpdating(topic: Topic) {
-        topicsBeingUpdated.add(topic)
+        topicsBeingUpdated[topic.id] = true
     }
 
-    private fun removeTopicFromUpdating(topic: Topic) = synchronized(this) {
-        for (i in topicsBeingUpdated.indices) {
-            if (topicsBeingUpdated[i].id == topic.id) {
-                topicsBeingUpdated.removeAt(i)
-                break
-            }
-        }
+    private fun removeTopicFromUpdating(topic: Topic) {
+        topicsBeingUpdated.remove(topic.id)
     }
 
 }
