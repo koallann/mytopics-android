@@ -124,7 +124,7 @@ class TopicsDbTest {
     @Test
     fun shouldNotUpdateInvalidTopic() {
         val user = User(1, "John Doe", "john.doe@acme.com", null)
-        val topic = Topic(10, "Topic #1", "...", "...", Topic.Status.OPEN, user)
+        val topic = Topic(1, "Topic #1", "...", "...", Topic.Status.OPEN, user)
 
         repository.updateTopic(topic)
             .test()
@@ -137,7 +137,7 @@ class TopicsDbTest {
     @Test
     fun shouldUpdateValidTopic() {
         val user = User(1, "John Doe", "john.doe@acme.com", null)
-        val topic = Topic(10, "Topic #1", "...", "...", Topic.Status.OPEN, user)
+        val topic = Topic(1, "Topic #1", "...", "...", Topic.Status.OPEN, user)
 
         UserEntity().apply {
             name = user.name
@@ -146,8 +146,17 @@ class TopicsDbTest {
         }.also {
             database.getUserDao().insert(it).subscribe()
         }
+        TopicEntity().apply {
+            title = topic.title
+            briefDescription = topic.briefDescription
+            details = topic.details
+            status = topic.status
+            userId = user.id
+        }.also {
+            database.getTopicDao().insert(it).subscribe()
+        }
 
-        repository.updateTopic(topic)
+        repository.updateTopic(topic.copy(status = Topic.Status.CLOSED))
             .test()
             .also { it.awaitTerminalEvent() }
             .assertSubscribed()
