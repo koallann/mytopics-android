@@ -1,16 +1,12 @@
 package me.koallann.mytopics.data_db.topic
 
-import android.content.Context
 import io.reactivex.Completable
 import io.reactivex.Single
 import me.koallann.mytopics.data.topic.TopicLocalDataSource
 import me.koallann.mytopics.domain.Topic
-import me.koallann.mytopics.data_db.AppDatabase
 import java.util.concurrent.TimeUnit
 
-class TopicDaoClient(context: Context) : TopicLocalDataSource {
-
-    private val topicDao: TopicDao = AppDatabase.getInstance(context).getTopicDao()
+class TopicDaoClient(private val topicDao: TopicDao) : TopicLocalDataSource {
 
     override fun getTopicsByStatus(status: Topic.Status): Single<List<Topic>> {
         return Completable.timer(2, TimeUnit.SECONDS)
@@ -33,7 +29,13 @@ class TopicDaoClient(context: Context) : TopicLocalDataSource {
 
     override fun updateTopicStatus(topic: Topic): Completable {
         return Completable.timer(2, TimeUnit.SECONDS)
-            .andThen(topicDao.updateStatus(topic.id, topic.status))
+            .andThen(Completable.fromSingle(
+                topicDao.updateStatus(topic.id, topic.status).doOnSuccess {
+                    if (it != 1) {
+                        throw IllegalArgumentException("Invalid topic id")
+                    }
+                }
+            ))
     }
 
 }

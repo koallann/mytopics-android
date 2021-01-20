@@ -8,6 +8,7 @@ import android.widget.Toast
 import br.com.ilhasoft.support.validation.Validator
 import me.koallann.mytopics.R
 import me.koallann.mytopics.data.user.UserRepositoryImpl
+import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.mytopics.databinding.ActivitySignupBinding
 import me.koallann.mytopics.domain.User
 import me.koallann.mytopics.data_db.user.UserDaoClient
@@ -28,7 +29,7 @@ class SignUpActivity : BaseActivity(), SignUpView {
     }
     private val presenter: SignUpPresenter by lazy {
         SignUpPresenter(
-            UserRepositoryImpl(UserDaoClient(this)),
+            UserRepositoryImpl(UserDaoClient(this, AppDatabase.getInstance(this).getUserDao())),
             StandardSchedulerProvider(),
             SignUpErrorHandler()
         )

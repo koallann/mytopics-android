@@ -11,7 +11,7 @@ import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.support.content.SharedPreferences
 import java.util.concurrent.TimeUnit
 
-class UserDaoClient(context: Context) : UserLocalDataSource {
+class UserDaoClient(context: Context, private val userDao: UserDao) : UserLocalDataSource {
 
     companion object {
         private const val KEY_SIGNED_USER_ID = "user_id"
@@ -20,7 +20,6 @@ class UserDaoClient(context: Context) : UserLocalDataSource {
     }
 
     private val preferences: SharedPreferences = SharedPreferences(context)
-    private val userDao: UserDao = AppDatabase.getInstance(context).getUserDao()
 
     override fun hasUserSigned(): Boolean {
         return preferences.getInt(KEY_SIGNED_USER_ID, -1) != -1

@@ -7,6 +7,7 @@ import android.view.View
 import br.com.ilhasoft.support.validation.Validator
 import me.koallann.mytopics.R
 import me.koallann.mytopics.data.user.UserRepositoryImpl
+import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.mytopics.databinding.ActivitySigninBinding
 import me.koallann.mytopics.domain.Credentials
 import me.koallann.mytopics.data_db.user.UserDaoClient
@@ -32,7 +33,7 @@ class  SignInActivity : BaseActivity(), SignInView {
     }
     private val presenter: SignInPresenter by lazy {
         SignInPresenter(
-            UserRepositoryImpl(UserDaoClient(this)),
+            UserRepositoryImpl(UserDaoClient(this, AppDatabase.getInstance(this).getUserDao())),
             StandardSchedulerProvider(),
             SignInErrorHandler()
         )

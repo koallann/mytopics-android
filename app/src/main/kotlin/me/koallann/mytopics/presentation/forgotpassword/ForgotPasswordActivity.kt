@@ -8,6 +8,7 @@ import android.widget.Toast
 import br.com.ilhasoft.support.validation.Validator
 import me.koallann.mytopics.R
 import me.koallann.mytopics.data.user.UserRepositoryImpl
+import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.mytopics.databinding.ActivityForgotPasswordBinding
 import me.koallann.mytopics.data_db.user.UserDaoClient
 import me.koallann.support.rxschedulers.StandardSchedulerProvider
@@ -28,7 +29,7 @@ class ForgotPasswordActivity : BaseActivity(), ForgotPasswordView {
     }
     private val presenter: ForgotPasswordPresenter by lazy {
         ForgotPasswordPresenter(
-            UserRepositoryImpl(UserDaoClient(this)),
+            UserRepositoryImpl(UserDaoClient(this, AppDatabase.getInstance(this).getUserDao())),
             StandardSchedulerProvider(),
             ForgotPasswordErrorHandler()
         )

@@ -16,7 +16,10 @@ interface TopicDao {
     @Insert
     fun insert(topic: TopicEntity): Completable
 
+    @Insert
+    fun insert(topic: List<TopicEntity>): Completable
+
     @Query("UPDATE topics_topic SET status = :status WHERE id = :id")
-    fun updateStatus(id: Int, status: Topic.Status): Completable
+    fun updateStatus(id: Int, status: Topic.Status): Single<Int>
 
 }

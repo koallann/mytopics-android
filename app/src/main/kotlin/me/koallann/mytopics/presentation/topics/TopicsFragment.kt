@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import me.koallann.mytopics.R
 import me.koallann.mytopics.data.topic.TopicRepositoryImpl
 import me.koallann.mytopics.data.user.UserRepositoryImpl
+import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.mytopics.databinding.FragmentTopicsBinding
 import me.koallann.mytopics.databinding.ItemTopicBinding
 import me.koallann.mytopics.domain.Topic
@@ -56,10 +57,12 @@ class TopicsFragment : BaseFragment(), TopicsView {
         ObservableBoolean(false)
     }
     private val presenter: TopicsPresenter by lazy {
+        val database = AppDatabase.getInstance(requireContext())
+
         TopicsPresenter(
             getStatusFilter(),
-            TopicRepositoryImpl(TopicDaoClient(requireContext())),
-            UserRepositoryImpl(UserDaoClient(requireContext())),
+            TopicRepositoryImpl(TopicDaoClient(database.getTopicDao())),
+            UserRepositoryImpl(UserDaoClient(requireContext(), database.getUserDao())),
             StandardSchedulerProvider(),
             TopicsErrorHandler()
         )

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import me.koallann.mytopics.R
 import me.koallann.mytopics.data.user.UserRepositoryImpl
+import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.mytopics.databinding.ActivityProfileBinding
 import me.koallann.mytopics.domain.User
 import me.koallann.mytopics.data_db.user.UserDaoClient
@@ -25,7 +26,7 @@ class ProfileActivity : BaseActivity(), ProfileView {
     }
     private val presenter: ProfilePresenter by lazy {
         ProfilePresenter(
-            UserRepositoryImpl(UserDaoClient(this)),
+            UserRepositoryImpl(UserDaoClient(this, AppDatabase.getInstance(this).getUserDao())),
             StandardSchedulerProvider()
         )
     }

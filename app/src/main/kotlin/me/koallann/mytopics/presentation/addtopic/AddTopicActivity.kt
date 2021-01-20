@@ -10,6 +10,7 @@ import br.com.ilhasoft.support.validation.Validator
 import me.koallann.mytopics.R
 import me.koallann.mytopics.data.topic.TopicRepositoryImpl
 import me.koallann.mytopics.data.user.UserRepositoryImpl
+import me.koallann.mytopics.data_db.AppDatabase
 import me.koallann.mytopics.databinding.ActivityAddTopicBinding
 import me.koallann.mytopics.domain.Topic
 import me.koallann.mytopics.data_db.topic.TopicDaoClient
@@ -33,9 +34,11 @@ class AddTopicActivity : BaseActivity(), AddTopicView {
         Validator(binding)
     }
     private val presenter: AddTopicPresenter by lazy {
+        val database = AppDatabase.getInstance(this)
+
         AddTopicPresenter(
-            TopicRepositoryImpl(TopicDaoClient(this)),
-            UserRepositoryImpl(UserDaoClient(this)),
+            TopicRepositoryImpl(TopicDaoClient(database.getTopicDao())),
+            UserRepositoryImpl(UserDaoClient(this, database.getUserDao())),
             StandardSchedulerProvider(),
             AddTopicErrorHandler()
         )

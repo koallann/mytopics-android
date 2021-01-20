@@ -60,6 +60,7 @@ dependencies {
     // Persistence
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // Input Validation
